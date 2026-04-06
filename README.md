@@ -6,11 +6,17 @@
 
 ## Why This Exists
 
-Good design begins before a single wireframe is drawn. It begins in the field — in the careful observation of real people, in the patterns that emerge from honest data, and in the discipline of turning raw findings into actionable insight.
+Most research doesn't fail in the field. It fails between the field and the meeting room.
 
-This tool was built out of that conviction.
+Findings fragment across tools. Synthesis gets compressed into timelines it was never designed to survive. Decisions get made on impressions rather than evidence — and no one can trace why.
 
-The TDS Research Analysis Suite is a browser-based workspace designed for UX researchers and designers who take methodology seriously. It supports five core research activities — from participant card sorting to session transcription — within a single, cohesive interface. No subscriptions. No enterprise walls. Built by a practitioner, for practice.
+The cost is rarely visible. But it accumulates: in products that miss the mark, in recommendations that don't hold, in research that couldn't defend itself when the room pushed back.
+
+The TDS Research Analysis Suite was built to address that gap at the process level, not just the workflow level. Grounded in DMAIC principles, it reduces variation between research phases, maintains traceability from raw observation to strategic output, and creates the conditions for synthesis that is repeatable, defensible, and built to withstand scrutiny.
+
+Five integrated activities. One cohesive workspace. No subscriptions. No enterprise gates.
+
+For researchers who understand that methodology is not overhead, it is the work.
 
 ---
 
