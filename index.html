@@ -7,279 +7,375 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --tds-ink:#1a1a1a;
-    --tds-muted:#6b6b6b;
-    --tds-border:#e0ddd6;
-    --tds-surface:#faf9f7;
-    --tds-white:#ffffff;
-    --tds-gold:#c4963a;
-    --tds-gold-light:#f5edd8;
-    --tds-accent:#2d4a3e;
-    --tds-accent-light:#e8f0ec;
-    --tds-danger-bg:#fcebeb;
-    --tds-danger:#a32d2d;
-    --tds-danger-border:#f09595;
-  }
-  body{font-family:'DM Sans',sans-serif;color:var(--tds-ink);background:var(--tds-surface);min-height:100vh}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --tds-ink:#1a1a1a;
+  --tds-muted:#6b6b6b;
+  --tds-border:#e0ddd6;
+  --tds-surface:#faf9f7;
+  --tds-white:#ffffff;
+  --tds-gold:#c4963a;
+  --tds-gold-light:#f5edd8;
+  --tds-accent:#2d4a3e;
+  --tds-accent-light:#e8f0ec;
+  --tds-danger:#a32d2d;
+  --tds-danger-bg:#fcebeb;
+  --tds-danger-border:#f09595;
+  --tds-high:#1a4a2e;
+  --tds-high-bg:#e4f0e8;
+  --tds-med:#4a3a10;
+  --tds-med-bg:#f5edd8;
+  --tds-low:#4a1a1a;
+  --tds-low-bg:#f5e4e4;
+}
+body{font-family:'DM Sans',sans-serif;color:var(--tds-ink);background:var(--tds-surface);min-height:100vh}
 
-  /* LAYOUT */
-  .app-shell{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+/* ── LAYOUT ── */
+.app-shell{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 5rem}
 
-  /* HEADER */
-  .suite-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;border-bottom:1px solid var(--tds-border);padding-bottom:1.25rem}
-  .suite-logo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--tds-ink);letter-spacing:0.02em}
-  .suite-logo span{color:var(--tds-gold)}
-  .suite-meta{text-align:right}
-  .suite-tagline{font-size:11px;color:var(--tds-muted);letter-spacing:0.09em;text-transform:uppercase}
-  .suite-version{font-size:10px;color:var(--tds-border);margin-top:3px;letter-spacing:0.05em}
+/* ── HEADER ── */
+.suite-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;border-bottom:1px solid var(--tds-border);padding-bottom:1.25rem}
+.suite-logo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--tds-ink);letter-spacing:.02em}
+.suite-logo span{color:var(--tds-gold)}
+.suite-meta{text-align:right}
+.suite-tagline{font-size:11px;color:var(--tds-muted);letter-spacing:.09em;text-transform:uppercase}
+.suite-version{font-size:10px;color:var(--tds-border);margin-top:3px;letter-spacing:.05em}
 
-  /* TABS */
-  .tab-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2rem}
-  .tab-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 16px;border:0.5px solid var(--tds-border);background:var(--tds-white);color:var(--tds-muted);border-radius:20px;cursor:pointer;letter-spacing:0.03em;transition:all 0.2s}
-  .tab-btn.active{background:var(--tds-accent);color:#fff;border-color:var(--tds-accent)}
-  .tab-btn:hover:not(.active){background:var(--tds-surface);color:var(--tds-ink)}
+/* ── TABS ── */
+.tab-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2rem}
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 16px;border:.5px solid var(--tds-border);background:var(--tds-white);color:var(--tds-muted);border-radius:20px;cursor:pointer;letter-spacing:.03em;transition:all .2s}
+.tab-btn.active{background:var(--tds-accent);color:#fff;border-color:var(--tds-accent)}
+.tab-btn:hover:not(.active){background:var(--tds-surface);color:var(--tds-ink)}
+.tab-btn.new-tab{position:relative}
+.tab-btn.new-tab::after{content:'NEW';font-size:8px;font-weight:700;background:var(--tds-gold);color:#fff;border-radius:4px;padding:1px 4px;position:absolute;top:-5px;right:-4px;letter-spacing:.04em}
 
-  /* PANELS */
-  .panel{display:none}.panel.active{display:block}
-  .panel-title{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--tds-ink);margin-bottom:5px}
-  .panel-sub{font-size:13px;color:var(--tds-muted);margin-bottom:1.5rem;line-height:1.6}
+/* ── PANELS ── */
+.panel{display:none}.panel.active{display:block}
+.panel-title{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--tds-ink);margin-bottom:5px}
+.panel-sub{font-size:13px;color:var(--tds-muted);margin-bottom:1.5rem;line-height:1.6}
+.panel-cite{font-size:11px;color:var(--tds-border);font-style:italic;margin-top:-1rem;margin-bottom:1.5rem}
+.panel-cite a{color:var(--tds-gold);text-decoration:none}
 
-  /* SHARED INPUTS */
-  input[type=text],input[type=url]{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 11px;border:0.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-ink);outline:none;transition:border-color 0.15s}
-  input[type=text]:focus,input[type=url]:focus{border-color:var(--tds-gold)}
-  textarea{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 11px;border:0.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-ink);outline:none;resize:vertical;transition:border-color 0.15s}
-  textarea:focus{border-color:var(--tds-gold)}
-  select{font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 9px;border:0.5px solid var(--tds-border);border-radius:6px;color:var(--tds-ink);background:var(--tds-white);outline:none}
-  button{font-family:'DM Sans',sans-serif;cursor:pointer}
+/* ── SHARED INPUTS ── */
+input[type=text],input[type=url]{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 11px;border:.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-ink);outline:none;transition:border-color .15s}
+input[type=text]:focus,input[type=url]:focus{border-color:var(--tds-gold)}
+textarea{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 11px;border:.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-ink);outline:none;resize:vertical;transition:border-color .15s}
+textarea:focus{border-color:var(--tds-gold)}
+select{font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 9px;border:.5px solid var(--tds-border);border-radius:6px;color:var(--tds-ink);background:var(--tds-white);outline:none;cursor:pointer}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+.btn-primary{font-size:12px;font-weight:500;padding:7px 14px;border:none;border-radius:6px;background:var(--tds-accent);color:#fff;transition:opacity .15s}
+.btn-primary:hover{opacity:.88}
+.btn-secondary{font-size:12px;font-weight:500;padding:7px 14px;border:.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-accent)}
+.btn-secondary:hover{background:var(--tds-accent-light)}
+.btn-ghost{font-size:11px;padding:6px 13px;border:.5px dashed var(--tds-border);border-radius:6px;background:transparent;color:var(--tds-accent);font-weight:500}
+.btn-ghost:hover{background:var(--tds-accent-light)}
+.btn-gold{font-size:12px;font-weight:500;padding:7px 14px;border:none;border-radius:6px;background:var(--tds-gold);color:#fff;transition:opacity .15s}
+.btn-gold:hover{opacity:.88}
 
-  .btn-primary{font-size:12px;font-weight:500;padding:7px 14px;border:none;border-radius:6px;background:var(--tds-accent);color:#fff;transition:opacity 0.15s}
-  .btn-primary:hover{opacity:0.88}
-  .btn-secondary{font-size:12px;font-weight:500;padding:7px 14px;border:0.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-accent)}
-  .btn-secondary:hover{background:var(--tds-accent-light)}
-  .btn-ghost{font-size:11px;padding:6px 13px;border:0.5px dashed var(--tds-border);border-radius:6px;background:transparent;color:var(--tds-accent);font-weight:500}
-  .btn-ghost:hover{background:var(--tds-accent-light)}
-  .btn-danger{font-size:11px;padding:6px 13px;border:0.5px solid var(--tds-danger-border);border-radius:6px;background:var(--tds-white);color:var(--tds-danger)}
-  .btn-danger:hover{background:var(--tds-danger-bg)}
+/* ── INSTRUCTION BLOCK ── */
+.instruction-block{background:var(--tds-gold-light);border:.5px solid var(--tds-gold);border-radius:8px;padding:12px 16px;margin-bottom:1.25rem}
+.instruction-block-title{font-size:10px;font-weight:500;color:var(--tds-gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.instruction-steps{font-size:12px;color:var(--tds-ink);line-height:1.9;list-style:none;padding-left:4px}
 
-  /* INSTRUCTION BLOCK */
-  .instruction-block{background:var(--tds-gold-light);border:0.5px solid var(--tds-gold);border-radius:8px;padding:12px 16px;margin-bottom:1.25rem}
-  .instruction-block-title{font-size:10px;font-weight:500;color:var(--tds-gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
-  .instruction-steps{font-size:12px;color:var(--tds-ink);line-height:1.8;list-style:none}
-  .instruction-steps li{padding-left:16px;position:relative}
-  .instruction-steps li::before{content:'→';position:absolute;left:0;color:var(--tds-gold);font-size:11px;top:1px}
+/* ── TWO-COL LAYOUT ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+@media(max-width:720px){.two-col,.three-col{grid-template-columns:1fr}}
 
-  /* CARD SORT */
-  .card-sort-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
-  .card-sort-wrap{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
-  .card-pool-col{min-width:170px;flex:0 0 170px}
-  .col-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--tds-muted);margin-bottom:8px;font-weight:500}
-  .sort-categories-grid{display:flex;flex:1;gap:10px;flex-wrap:wrap}
-  .sort-category{background:var(--tds-white);border:1px dashed var(--tds-border);border-radius:8px;padding:12px;min-width:140px;min-height:130px;flex:1;transition:background 0.15s}
-  .sort-category.drag-over{background:var(--tds-accent-light);border-color:var(--tds-accent)}
-  .cat-label{font-size:10px;font-weight:500;color:var(--tds-accent);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px}
-  .card-item{background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:6px;padding:8px 11px;font-size:12px;margin-bottom:7px;cursor:grab;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.15s,border-color 0.15s;user-select:none}
-  .card-item:active{cursor:grabbing}
-  .card-item:hover{box-shadow:0 2px 10px rgba(0,0,0,0.07);border-color:var(--tds-gold)}
-  .card-item.dragging{opacity:0.35}
-  .card-dot{width:6px;height:6px;border-radius:50%;background:var(--tds-gold);flex-shrink:0;margin-left:8px}
+/* ── CARD SORT ── */
+.card-pool-wrap{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:14px}
+.card-pool-title{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--tds-muted);margin-bottom:10px}
+.card-pool{display:flex;flex-wrap:wrap;gap:8px;min-height:60px}
+.card{padding:7px 12px;background:var(--tds-surface);border:.5px solid var(--tds-border);border-radius:6px;font-size:12px;color:var(--tds-ink);cursor:grab;user-select:none;transition:all .15s}
+.card:hover{border-color:var(--tds-gold);background:var(--tds-gold-light)}
+.card.dragging{opacity:.45;transform:scale(.96)}
+.sort-categories{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:1rem}
+.sort-cat{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:12px;min-height:100px}
+.sort-cat-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.sort-cat-name{font-size:11px;font-weight:500;color:var(--tds-accent);text-transform:uppercase;letter-spacing:.06em}
+.sort-cat.drag-over{border-color:var(--tds-gold);background:var(--tds-gold-light)}
+.sort-cat-cards{display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
+.sort-cat-cards .card{background:var(--tds-accent-light);border-color:var(--tds-accent)}
+.add-row{display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap}
 
-  /* HEAT MAP */
-  .heatmap-url-bar{display:flex;gap:8px;margin-bottom:1rem;align-items:center;flex-wrap:wrap}
-  .heatmap-url-bar input{flex:1;min-width:200px}
-  .heatmap-layout{display:flex;gap:1.5rem;flex-wrap:wrap}
-  .heatmap-canvas-wrap{position:relative;flex:1;min-width:260px;min-height:300px;background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:8px;overflow:hidden;cursor:crosshair}
-  .heatmap-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10}
-  .heatmap-mock{width:100%;min-height:300px;display:flex;flex-direction:column;padding:14px;gap:10px;position:relative;z-index:2}
-  .mock-nav{height:32px;background:var(--tds-surface);border-radius:6px;display:flex;align-items:center;padding:0 12px;gap:8px;border:0.5px solid var(--tds-border)}
-  .mock-dot{width:9px;height:9px;border-radius:50%;background:var(--tds-border)}
-  .mock-url-pill{font-size:9px;color:var(--tds-muted);margin-left:auto;background:var(--tds-white);border:0.5px solid var(--tds-border);padding:2px 8px;border-radius:10px}
-  .mock-hero{flex:2;background:var(--tds-surface);border-radius:6px;border:0.5px solid var(--tds-border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--tds-muted);min-height:120px;font-style:italic}
-  .mock-row{display:flex;gap:8px;height:44px}
-  .mock-block{flex:1;background:var(--tds-surface);border-radius:6px;border:0.5px solid var(--tds-border)}
-  .url-mode-banner{position:absolute;top:0;left:0;right:0;background:var(--tds-gold-light);border-bottom:0.5px solid var(--tds-gold);font-size:10px;color:var(--tds-gold);text-transform:uppercase;letter-spacing:0.07em;text-align:center;padding:5px;z-index:15;font-weight:500}
-  .heatmap-iframe{width:100%;height:100%;border:none;position:absolute;top:0;left:0;z-index:1}
-  .heatmap-sidebar{min-width:180px;display:flex;flex-direction:column;gap:10px}
-  .heat-stat{background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:8px;padding:11px 13px}
-  .heat-stat-label{font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--tds-muted);margin-bottom:3px}
-  .heat-stat-val{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--tds-accent)}
-  .heat-stat-val.sm{font-size:1rem;margin-top:3px}
-  .heat-legend{display:flex;gap:5px;align-items:center}
-  .heat-legend-bar{flex:1;height:7px;border-radius:4px;background:linear-gradient(to right,rgba(196,150,58,0.1),rgba(196,150,58,1))}
-  .heat-legend-label{font-size:10px;color:var(--tds-muted)}
+/* ── HEAT MAP ── */
+.heatmap-layout{display:grid;grid-template-columns:1fr 260px;gap:1.25rem}
+.heatmap-canvas-wrap{position:relative;background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;overflow:hidden;cursor:crosshair}
+.heatmap-canvas{width:100%;display:block}
+.heatmap-dot{position:absolute;width:36px;height:36px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:multiply}
+.heatmap-sidebar{display:flex;flex-direction:column;gap:10px}
+.hm-stat{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:8px;padding:12px}
+.hm-stat-val{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--tds-accent)}
+.hm-stat-label{font-size:11px;color:var(--tds-muted);margin-top:2px}
+.hm-zone{font-size:11px;padding:5px 9px;border-radius:6px;margin-top:6px;font-weight:500}
+.hm-zone.hot{background:#fce8e8;color:#a32d2d}
+.hm-zone.warm{background:var(--tds-gold-light);color:#7a5a10}
+.hm-zone.cool{background:var(--tds-accent-light);color:var(--tds-accent)}
+.hm-legend{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:8px;padding:12px}
+.hm-legend-title{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--tds-muted);margin-bottom:8px}
+.hm-legend-bar{height:10px;border-radius:5px;background:linear-gradient(to right,rgba(44,74,62,.05),rgba(44,74,62,.3),rgba(196,150,58,.5),rgba(163,45,45,.75));margin-bottom:5px}
+.hm-legend-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--tds-muted)}
+.url-bar{display:flex;gap:8px;margin-bottom:10px;align-items:center}
+.url-bar input{flex:1}
 
-  /* FIELD GUIDE */
-  .fg-toolbar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
-  .fg-table-wrap{overflow-x:auto;border:0.5px solid var(--tds-border);border-radius:8px}
-  .fg-table{width:100%;border-collapse:collapse;font-size:12px}
-  .fg-table th{background:var(--tds-accent);color:#fff;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;padding:9px 11px;text-align:left;white-space:nowrap}
-  .fg-table th:first-child{border-radius:8px 0 0 0}
-  .fg-table th:last-child{border-radius:0 8px 0 0}
-  .fg-table td{border-bottom:0.5px solid var(--tds-border);padding:0;vertical-align:top}
-  .fg-table td input,.fg-table td select,.fg-table td textarea{font-family:'DM Sans',sans-serif;font-size:12px;padding:8px 10px;border:none;background:transparent;width:100%;color:var(--tds-ink);outline:none;resize:none}
-  .fg-table td textarea{min-height:40px;line-height:1.5}
-  .fg-table td input:focus,.fg-table td select:focus,.fg-table td textarea:focus{background:var(--tds-gold-light)}
-  .fg-table tr:hover td{background:var(--tds-surface)}
-  .fg-table .row-num{width:32px;text-align:center;color:var(--tds-muted);font-size:11px;padding:10px 6px}
-  .del-cell{width:36px}
-  .del-btn{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--tds-border);background:transparent;cursor:pointer;color:var(--tds-muted);font-size:14px;display:flex;align-items:center;justify-content:center;margin:7px auto}
-  .del-btn:hover{background:var(--tds-danger-bg);color:var(--tds-danger);border-color:var(--tds-danger-border)}
+/* ── FIELD GUIDE ── */
+.fg-controls{display:flex;gap:10px;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.fg-table-wrap{overflow-x:auto}
+.fg-table{width:100%;border-collapse:collapse;font-size:12px}
+.fg-table th{background:var(--tds-accent);color:#fff;font-weight:500;padding:9px 12px;text-align:left;font-size:11px;letter-spacing:.04em;white-space:nowrap}
+.fg-table td{padding:8px 10px;border-bottom:.5px solid var(--tds-border);vertical-align:top}
+.fg-table tr:nth-child(even) td{background:var(--tds-surface)}
+.fg-table td input,.fg-table td textarea{width:100%;border:none;background:transparent;font-size:12px;color:var(--tds-ink);font-family:'DM Sans',sans-serif;resize:none;outline:none;line-height:1.5}
+.fg-table td textarea{min-height:36px}
+.fg-del{background:none;border:none;color:var(--tds-border);font-size:13px;cursor:pointer;padding:0 4px}
+.fg-del:hover{color:var(--tds-danger)}
 
-  /* AFFINITY */
-  .affinity-wrap{border:0.5px solid var(--tds-border);border-radius:8px;overflow:hidden;background:var(--tds-white)}
-  .affinity-toolbar{display:flex;gap:8px;padding:12px;border-bottom:0.5px solid var(--tds-border);flex-wrap:wrap;align-items:center;background:var(--tds-surface)}
-  .aff-note-input{flex:1;min-width:120px}
-  .aff-color-row{display:flex;gap:5px;align-items:center}
-  .aff-dot{width:17px;height:17px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color 0.15s,transform 0.1s}
-  .aff-dot:hover{transform:scale(1.15)}
-  .aff-dot.selected{border-color:var(--tds-ink) !important}
-  .aff-board{position:relative;min-height:340px;padding:14px}
-  .aff-note{position:absolute;width:130px;min-height:85px;border-radius:5px;padding:9px;font-size:11px;line-height:1.55;cursor:move;user-select:none;display:flex;flex-direction:column;box-shadow:1px 2px 8px rgba(0,0,0,0.09)}
-  .aff-note-body{flex:1;font-family:'DM Sans',sans-serif;outline:none}
-  .aff-note-footer{display:flex;justify-content:flex-end;margin-top:6px}
-  .aff-del{background:none;border:none;cursor:pointer;font-size:13px;opacity:0.35;line-height:1;padding:0}
-  .aff-del:hover{opacity:0.8}
-  .aff-cluster{position:absolute;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;background:var(--tds-white);border:0.5px solid var(--tds-accent);border-radius:4px;padding:3px 9px;cursor:move;user-select:none;color:var(--tds-accent);outline:none}
+/* ── AFFINITY ── */
+.affinity-controls{display:flex;gap:10px;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.affinity-board{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;min-height:440px;position:relative;overflow:hidden}
+.affinity-note{position:absolute;width:148px;min-height:80px;border-radius:6px;padding:10px;font-size:12px;line-height:1.5;cursor:move;user-select:none;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:box-shadow .15s;word-wrap:break-word}
+.affinity-note:hover{box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.affinity-note-del{position:absolute;top:5px;right:6px;background:none;border:none;cursor:pointer;font-size:11px;opacity:.4;color:#000}
+.affinity-note-del:hover{opacity:.8}
+.affinity-label{position:absolute;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tds-muted);border-bottom:1px dashed var(--tds-border);cursor:move;padding:2px 0;min-width:80px;background:transparent;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif}
+.color-swatch{width:20px;height:20px;border-radius:50%;cursor:pointer;border:.5px solid rgba(0,0,0,.12);transition:transform .15s;flex-shrink:0}
+.color-swatch.active{transform:scale(1.25);box-shadow:0 0 0 2px var(--tds-gold)}
+.color-row{display:flex;gap:8px;align-items:center}
 
-  /* USER FLOW */
-  .flow-layout{display:flex;gap:1.25rem;flex-wrap:wrap}
-  .flow-col{flex:1;min-width:250px}
-  .flow-col-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--tds-muted);margin-bottom:10px;font-weight:500}
-  .flow-input-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-  .flow-input-row input{flex:1;min-width:80px}
-  .flow-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;position:relative}
-  .flow-connector{position:absolute;left:11px;top:24px;width:1px;height:calc(100% + 8px);background:var(--tds-border)}
-  .flow-node{width:23px;height:23px;border-radius:50%;background:var(--tds-accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:500;margin-top:2px;position:relative;z-index:1}
-  .flow-step-card{flex:1;background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:6px;padding:8px 11px}
-  .flow-path{font-size:12px;font-weight:500;color:var(--tds-ink)}
-  .flow-time{font-size:10px;color:var(--tds-gold);margin-top:3px;font-weight:500;font-family:'DM Serif Display',serif}
-  .flow-note-text{font-size:11px;color:var(--tds-muted);margin-top:4px;font-style:italic}
-  .flow-del{background:none;border:none;cursor:pointer;color:var(--tds-border);font-size:13px;padding:2px;align-self:center;flex-shrink:0}
-  .flow-del:hover{color:var(--tds-danger)}
-  .audio-bar{background:var(--tds-surface);border:0.5px solid var(--tds-border);border-radius:8px;padding:11px 13px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .audio-label{font-size:11px;color:var(--tds-muted)}
-  .audio-upload-btn{font-size:11px;padding:5px 12px;border:0.5px dashed var(--tds-border);border-radius:6px;cursor:pointer;background:var(--tds-white);color:var(--tds-accent);font-weight:500}
-  .ai-btn{font-size:11px;padding:5px 12px;border:none;border-radius:6px;cursor:pointer;background:var(--tds-gold);color:#fff;font-weight:500}
-  .ai-btn:hover{opacity:0.88}
-  .transcript-board{background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:8px;min-height:220px;padding:12px;margin-bottom:10px}
-  .t-entry{display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:0.5px solid var(--tds-border)}
-  .t-stamp{font-size:10px;color:var(--tds-gold);font-weight:500;white-space:nowrap;min-width:38px;font-family:'DM Serif Display',serif;padding-top:1px}
-  .t-body{flex:1}
-  .t-text{font-size:12px;color:var(--tds-ink);line-height:1.55}
-  .t-ann{font-size:10px;color:var(--tds-accent);font-style:italic;margin-top:3px}
-  .t-input-row{display:flex;gap:6px;flex-wrap:wrap}
-  .t-input-row input{flex:1;min-width:80px}
+/* ── USER FLOW ── */
+.flow-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.flow-sidebar,.transcript-wrap{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:14px}
+.flow-sidebar-title,.transcript-title{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--tds-muted);margin-bottom:12px}
+.flow-step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.flow-step-num{width:22px;height:22px;border-radius:50%;background:var(--tds-accent);color:#fff;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.flow-step-body{flex:1;background:var(--tds-surface);border:.5px solid var(--tds-border);border-radius:6px;padding:7px 10px}
+.flow-step-path{font-size:12px;font-weight:500;color:var(--tds-ink)}
+.flow-step-time{font-size:10px;color:var(--tds-gold);margin-top:2px;font-weight:500;font-family:'DM Serif Display',serif}
+.flow-step-note{font-size:11px;color:var(--tds-muted);margin-top:3px;font-style:italic}
+.flow-step-del{background:none;border:none;cursor:pointer;color:var(--tds-border);font-size:12px;padding:0;align-self:center}
+.flow-step-del:hover{color:var(--tds-danger)}
+.transcript-area{background:var(--tds-surface);border:.5px solid var(--tds-border);border-radius:8px;min-height:200px;padding:12px;font-size:12px;color:var(--tds-ink);line-height:1.7}
+.transcript-entry{display:flex;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:.5px solid var(--tds-border)}
+.t-stamp{font-size:10px;color:var(--tds-gold);font-weight:500;white-space:nowrap;min-width:40px;font-family:'DM Serif Display',serif}
+.t-text{font-size:12px;color:var(--tds-ink);flex:1}
+.t-annotation{font-size:10px;color:var(--tds-accent);font-style:italic;margin-top:2px}
+.audio-bar{background:var(--tds-surface);border:.5px solid var(--tds-border);border-radius:8px;padding:10px 12px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.audio-bar-label{font-size:11px;color:var(--tds-muted)}
+.audio-upload{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 12px;border:.5px dashed var(--tds-border);border-radius:6px;cursor:pointer;background:var(--tds-white);color:var(--tds-accent)}
+.ai-transcribe-btn{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 12px;border:none;border-radius:6px;cursor:pointer;background:var(--tds-gold);color:#fff;font-weight:500}
 
-  /* FOOTER */
-  .suite-footer{margin-top:3rem;padding-top:1rem;border-top:0.5px solid var(--tds-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-  .footer-brand{font-family:'DM Serif Display',serif;font-size:0.9rem;color:var(--tds-muted)}
-  .footer-brand span{color:var(--tds-gold)}
-  .footer-link{font-size:11px;color:var(--tds-muted);text-decoration:none;letter-spacing:0.03em}
-  .footer-link:hover{color:var(--tds-accent)}
+/* ════════════════════════════════════════════════
+   NEW MODULE 1 — AI TECHNIQUE SELECTOR
+   Gartner Heat Map logic as a research planning tool
+   ════════════════════════════════════════════════ */
+.ait-layout{display:grid;grid-template-columns:320px 1fr;gap:1.5rem}
+@media(max-width:800px){.ait-layout{grid-template-columns:1fr}}
+.ait-selector-panel{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:16px}
+.ait-selector-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--tds-muted);margin-bottom:8px}
+.ait-use-case-list{display:flex;flex-direction:column;gap:6px}
+.ait-use-case-btn{font-family:'DM Sans',sans-serif;font-size:12px;padding:10px 13px;border:.5px solid var(--tds-border);border-radius:7px;background:var(--tds-surface);color:var(--tds-ink);text-align:left;cursor:pointer;transition:all .15s;line-height:1.3}
+.ait-use-case-btn:hover{border-color:var(--tds-gold);background:var(--tds-gold-light)}
+.ait-use-case-btn.active{border-color:var(--tds-accent);background:var(--tds-accent);color:#fff}
+.ait-result-panel{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:16px}
+.ait-result-title{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--tds-ink);margin-bottom:4px}
+.ait-result-desc{font-size:12px;color:var(--tds-muted);margin-bottom:16px;line-height:1.6}
+.ait-technique-grid{display:flex;flex-direction:column;gap:10px}
+.ait-technique-row{display:grid;grid-template-columns:180px 80px 1fr;gap:12px;align-items:start;padding:10px 12px;border-radius:8px;border:.5px solid var(--tds-border)}
+.ait-technique-row.high{background:var(--tds-high-bg);border-color:#a8d5b5}
+.ait-technique-row.medium{background:var(--tds-med-bg);border-color:var(--tds-gold)}
+.ait-technique-row.low{background:var(--tds-low-bg);border-color:#f09595}
+.ait-tech-name{font-size:12px;font-weight:500;color:var(--tds-ink)}
+.ait-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.05em}
+.ait-badge.high{background:var(--tds-high);color:#fff}
+.ait-badge.medium{background:var(--tds-gold);color:#fff}
+.ait-badge.low{background:var(--tds-danger);color:#fff}
+.ait-tech-note{font-size:11px;color:var(--tds-muted);line-height:1.5}
+.ait-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;color:var(--tds-border);text-align:center;gap:8px}
+.ait-empty-icon{font-size:2rem}
+.ait-empty-text{font-size:12px;line-height:1.6}
+.ait-footnote{font-size:10px;color:var(--tds-border);margin-top:14px;padding-top:12px;border-top:.5px solid var(--tds-border);font-style:italic}
+.ait-footnote a{color:var(--tds-gold);text-decoration:none}
+
+/* ════════════════════════════════════════════════
+   NEW MODULE 2 — DIIS LENS FILTER (Field Guide enhancement)
+   Pre-session intake using DIIS six human lenses
+   ════════════════════════════════════════════════ */
+.diis-intake{background:var(--tds-accent);border-radius:10px;padding:16px;margin-bottom:1.25rem;color:#fff}
+.diis-intake-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;cursor:pointer}
+.diis-intake-title{font-family:'DM Serif Display',serif;font-size:1rem;color:#fff}
+.diis-intake-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px}
+.diis-toggle-btn{font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 11px;border:.5px solid rgba(255,255,255,.3);border-radius:5px;background:transparent;color:#fff;cursor:pointer}
+.diis-lenses{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+@media(max-width:600px){.diis-lenses{grid-template-columns:repeat(2,1fr)}}
+.diis-lens{border:.5px solid rgba(255,255,255,.2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .15s;position:relative}
+.diis-lens:hover{background:rgba(255,255,255,.1)}
+.diis-lens.selected{background:rgba(255,255,255,.15);border-color:var(--tds-gold)}
+.diis-lens.selected::after{content:'✓';position:absolute;top:6px;right:8px;font-size:10px;color:var(--tds-gold)}
+.diis-lens-name{font-size:11px;font-weight:500;color:#fff;margin-bottom:3px}
+.diis-lens-def{font-size:10px;color:rgba(255,255,255,.6);line-height:1.4}
+.diis-selected-summary{margin-top:12px;padding-top:12px;border-top:.5px solid rgba(255,255,255,.15);font-size:11px;color:rgba(255,255,255,.7)}
+.diis-selected-summary strong{color:#fff}
+.diis-collapsed{display:none}
+
+/* ════════════════════════════════════════════════
+   NEW MODULE 3 — AI PATTERN BROWSER
+   Atlas of AI Interaction Design taxonomy reference
+   ════════════════════════════════════════════════ */
+.apb-layout{display:grid;grid-template-columns:220px 1fr;gap:1.5rem}
+@media(max-width:800px){.apb-layout{grid-template-columns:1fr}}
+.apb-nav{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:14px;align-self:start}
+.apb-nav-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--tds-muted);margin-bottom:10px}
+.apb-layer-btn{display:block;width:100%;text-align:left;font-family:'DM Sans',sans-serif;font-size:12px;padding:9px 12px;border:.5px solid var(--tds-border);border-radius:7px;background:var(--tds-surface);color:var(--tds-ink);cursor:pointer;margin-bottom:6px;transition:all .15s;line-height:1.3}
+.apb-layer-btn:hover{border-color:var(--tds-gold);background:var(--tds-gold-light)}
+.apb-layer-btn.active{border-color:var(--tds-accent);background:var(--tds-accent);color:#fff}
+.apb-layer-btn .layer-sub{font-size:10px;opacity:.7;display:block;margin-top:2px}
+.apb-content{background:var(--tds-white);border:.5px solid var(--tds-border);border-radius:10px;padding:16px}
+.apb-layer-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--tds-ink);margin-bottom:4px}
+.apb-layer-desc{font-size:12px;color:var(--tds-muted);margin-bottom:16px;line-height:1.6;padding-bottom:12px;border-bottom:.5px solid var(--tds-border)}
+.apb-patterns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.apb-pattern-card{border:.5px solid var(--tds-border);border-radius:8px;padding:12px;cursor:pointer;transition:all .15s}
+.apb-pattern-card:hover{border-color:var(--tds-gold);background:var(--tds-gold-light)}
+.apb-pattern-card.selected{border-color:var(--tds-accent);background:var(--tds-accent-light)}
+.apb-pattern-name{font-size:12px;font-weight:500;color:var(--tds-ink);margin-bottom:4px}
+.apb-pattern-desc{font-size:11px;color:var(--tds-muted);line-height:1.4}
+.apb-pattern-detail{margin-top:16px;padding:14px;background:var(--tds-surface);border-radius:8px;border:.5px solid var(--tds-border)}
+.apb-pattern-detail-name{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--tds-accent);margin-bottom:6px}
+.apb-pattern-detail-body{font-size:12px;color:var(--tds-ink);line-height:1.7}
+.apb-pattern-detail-body p{margin-bottom:8px}
+.apb-pattern-detail-body strong{color:var(--tds-accent)}
+.apb-stats-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.apb-stat{text-align:center;background:var(--tds-surface);border:.5px solid var(--tds-border);border-radius:8px;padding:10px 16px}
+.apb-stat-val{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--tds-accent)}
+.apb-stat-label{font-size:10px;color:var(--tds-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+/* ── FOOTER ── */
+.suite-footer{margin-top:4rem;padding-top:1.5rem;border-top:.5px solid var(--tds-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--tds-muted)}
+.footer-brand span{color:var(--tds-gold)}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:11px;color:var(--tds-muted);text-decoration:none;letter-spacing:.04em}
+.footer-links a:hover{color:var(--tds-accent)}
 </style>
 </head>
 <body>
 <div class="app-shell">
 
-  <header class="suite-header">
+  <!-- ══ HEADER ══ -->
+  <div class="suite-header">
     <div>
       <div class="suite-logo">Team Design <span>Studios</span></div>
-      <div class="suite-tagline" style="margin-top:4px">Research Analysis Suite</div>
+      <div class="suite-tagline" style="margin-top:3px">Research Analysis Suite</div>
     </div>
     <div class="suite-meta">
       <div class="suite-tagline">Clarity by Design</div>
-      <div class="suite-version">v1.0 · 2026</div>
+      <div class="suite-version">v2.0 · April 2026</div>
     </div>
-  </header>
+  </div>
 
-  <nav class="tab-nav">
+  <!-- ══ TABS ══ -->
+  <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('card-sort',this)">Card Sorting</button>
     <button class="tab-btn" onclick="switchTab('heatmap',this)">Heat Map</button>
     <button class="tab-btn" onclick="switchTab('field-guide',this)">Field Guide</button>
     <button class="tab-btn" onclick="switchTab('affinity',this)">Affinity Diagram</button>
     <button class="tab-btn" onclick="switchTab('user-flow',this)">User Flow</button>
-  </nav>
+    <button class="tab-btn new-tab" onclick="switchTab('ai-technique',this)">AI Technique Selector</button>
+    <button class="tab-btn new-tab" onclick="switchTab('pattern-browser',this)">Pattern Browser</button>
+  </div>
 
-  <!-- CARD SORTING -->
-  <section id="panel-card-sort" class="panel active">
+  <!-- ══════════════════════════════════════════
+       PANEL 1 — CARD SORTING
+  ══════════════════════════════════════════ -->
+  <div id="panel-card-sort" class="panel active">
     <div class="panel-title">Card Sorting</div>
-    <div class="panel-sub">Open sort — participants group content by their own mental model to reveal navigation intuition.</div>
+    <div class="panel-sub">Drag cards into categories to surface participant mental models and information hierarchies.</div>
     <div class="instruction-block">
-      <div class="instruction-block-title">Participant Instructions</div>
-      <ul class="instruction-steps">
-        <li>Read all cards in the pool before moving anything.</li>
-        <li>When ready, drag each card into the category that feels most natural to you.</li>
-        <li>Sort by priority — place your most certain cards first.</li>
-        <li>You may create new categories if none of the existing ones fit your thinking.</li>
-        <li>There are no right or wrong answers. We want your instinct.</li>
-      </ul>
+      <div class="instruction-block-title">Instructions for Participants</div>
+      <ol class="instruction-steps">
+        <li>1. Read each card fully before moving it.</li>
+        <li>2. Drag cards into the category that feels most natural to you.</li>
+        <li>3. You can create new categories using the button below.</li>
+        <li>4. There are no right or wrong answers — your instinct is the data.</li>
+      </ol>
     </div>
-    <div class="card-sort-controls">
-      <input type="text" id="new-card-input" placeholder="New card label..." style="width:180px">
-      <button class="btn-secondary" onclick="addCard()">+ Add Card</button>
-      <input type="text" id="new-cat-input" placeholder="New category name..." style="width:190px">
-      <button class="btn-secondary" onclick="addCategory()">+ Add Category</button>
-      <button class="btn-danger" onclick="resetSort()" style="margin-left:auto">Reset Sort</button>
+    <div class="card-pool-wrap">
+      <div class="card-pool-title">Unsorted Cards</div>
+      <div id="unsorted-pool" class="card-pool"></div>
     </div>
-    <div class="card-sort-wrap">
-      <div class="card-pool-col">
-        <div class="col-label">Unsorted Cards</div>
-        <div id="card-pool" ondragover="allowDrop(event)" ondrop="dropCard(event,'pool')" style="min-height:100px"></div>
-      </div>
-      <div class="sort-categories-grid" id="sort-categories"></div>
+    <div class="add-row" style="margin-top:10px">
+      <input type="text" id="new-card-input" placeholder="Add a card..." style="width:220px">
+      <button class="btn-primary" onclick="addCard()">Add Card</button>
     </div>
-  </section>
+    <div id="sort-categories" class="sort-categories"></div>
+    <div class="add-row" style="margin-top:1rem">
+      <input type="text" id="new-cat-input" placeholder="New category name..." style="width:220px">
+      <button class="btn-ghost" onclick="addCategory()">+ Add Category</button>
+      <button class="btn-secondary" onclick="resetSort()" style="margin-left:auto">Reset</button>
+    </div>
+  </div>
 
-  <!-- HEAT MAP -->
-  <section id="panel-heatmap" class="panel">
+  <!-- ══════════════════════════════════════════
+       PANEL 2 — HEAT MAP
+  ══════════════════════════════════════════ -->
+  <div id="panel-heatmap" class="panel">
     <div class="panel-title">Heat Map</div>
-    <div class="panel-sub">Record interaction points on a live URL or built-in wireframe mockup. Click anywhere on the canvas to log a touch point.</div>
-    <div class="heatmap-url-bar">
-      <input type="url" id="heatmap-url" placeholder="https://teamdesignstudios.com — paste any URL to load a live site...">
-      <button class="btn-primary" onclick="loadHeatURL()">Load URL</button>
-      <button class="btn-secondary" onclick="resetHeatMock()">Use Mockup</button>
-      <button class="btn-danger" onclick="clearHeat()">Clear Heat Map</button>
+    <div class="panel-sub">Click anywhere on the canvas to record interaction points. Intensity builds with repeated engagement — revealing attention and navigation patterns.</div>
+    <div class="url-bar">
+      <input type="url" id="hm-url" placeholder="Enter a URL to load in canvas (optional)..." style="flex:1">
+      <button class="btn-primary" onclick="loadHmUrl()">Load</button>
+      <button class="btn-secondary" onclick="resetHeatmap()">Clear Map</button>
     </div>
     <div class="heatmap-layout">
-      <div class="heatmap-canvas-wrap" id="heatmap-wrap" onclick="recordClick(event)">
-        <div id="heatmap-content" class="heatmap-mock">
-          <div class="mock-nav">
-            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
-            <div class="mock-url-pill">teamdesignstudios.com</div>
-          </div>
-          <div class="mock-hero">[ hero / primary content area ]</div>
-          <div class="mock-row"><div class="mock-block"></div><div class="mock-block"></div><div class="mock-block"></div></div>
-          <div class="mock-row"><div class="mock-block" style="flex:2"></div><div class="mock-block"></div></div>
-        </div>
-        <canvas id="heat-canvas" class="heatmap-overlay"></canvas>
+      <div class="heatmap-canvas-wrap" id="hm-wrap" onclick="addHeat(event)">
+        <canvas id="hm-canvas" class="heatmap-canvas" width="720" height="480"></canvas>
       </div>
       <div class="heatmap-sidebar">
-        <div class="heat-stat"><div class="heat-stat-label">Total Clicks</div><div class="heat-stat-val" id="click-count">0</div></div>
-        <div class="heat-stat"><div class="heat-stat-label">Hot Zone</div><div class="heat-stat-val sm" id="hot-zone">—</div></div>
-        <div class="heat-stat"><div class="heat-stat-label">Mode</div><div class="heat-stat-val sm" id="heat-mode">Mockup</div></div>
-        <div class="heat-legend">
-          <span class="heat-legend-label">Low</span>
-          <div class="heat-legend-bar"></div>
-          <span class="heat-legend-label">High</span>
+        <div class="hm-stat"><div class="hm-stat-val" id="hm-total">0</div><div class="hm-stat-label">Total Interactions</div></div>
+        <div class="hm-stat"><div class="hm-stat-val" id="hm-zone-val">—</div><div class="hm-stat-label">Highest Density Zone</div><div class="hm-zone cool" id="hm-zone-label">No data yet</div></div>
+        <div class="hm-legend">
+          <div class="hm-legend-title">Interaction Intensity</div>
+          <div class="hm-legend-bar"></div>
+          <div class="hm-legend-labels"><span>Low</span><span>Medium</span><span>High</span></div>
         </div>
+        <button class="btn-gold" onclick="exportHeatmap()">Export PNG</button>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FIELD GUIDE -->
-  <section id="panel-field-guide" class="panel">
+  <!-- ══════════════════════════════════════════
+       PANEL 3 — FIELD GUIDE (with DIIS Lens Filter)
+  ══════════════════════════════════════════ -->
+  <div id="panel-field-guide" class="panel">
     <div class="panel-title">Field Guide</div>
-    <div class="panel-sub">Document observations, behaviors, quotes, and insights in real time. A Comments column keeps your researcher thinking anchored to each row.</div>
-    <div class="fg-toolbar">
-      <select id="fg-method" onchange="updateFGColumns()">
+    <div class="panel-sub">Structured observation table with pre-session DIIS lens intake. Select active lenses before the session begins — they anchor which human dimensions to observe.</div>
+
+    <!-- DIIS INTAKE BLOCK -->
+    <div class="diis-intake">
+      <div class="diis-intake-hdr" onclick="toggleDiis()">
+        <div>
+          <div class="diis-intake-title">DIIS Pre-Session Lens Intake</div>
+          <div class="diis-intake-sub">Design Intelligence Intake System · Select active human lenses for this session</div>
+        </div>
+        <button class="diis-toggle-btn" id="diis-toggle-btn">Collapse</button>
+      </div>
+      <div id="diis-body">
+        <div class="diis-lenses" id="diis-lenses-grid">
+          <!-- populated by JS -->
+        </div>
+        <div class="diis-selected-summary" id="diis-summary">No lenses selected — all dimensions will be observed.</div>
+      </div>
+    </div>
+
+    <div class="fg-controls">
+      <label style="font-size:12px;color:var(--tds-muted);font-weight:500">Method:</label>
+      <select id="fg-method" onchange="renderFieldGuide()">
         <option value="interview">User Interview</option>
         <option value="usability">Usability Study</option>
         <option value="contextual">Contextual Inquiry</option>
         <option value="survey">Survey Analysis</option>
       </select>
-      <button class="btn-primary" onclick="exportFG()">Export CSV</button>
-      <button class="btn-danger" style="margin-left:auto" onclick="clearFG()">Clear Table</button>
+      <button class="btn-primary" onclick="addFgRow()">+ Add Row</button>
+      <button class="btn-gold" onclick="exportFg()">Export CSV</button>
     </div>
     <div class="fg-table-wrap">
       <table class="fg-table" id="fg-table">
@@ -287,458 +383,779 @@
         <tbody id="fg-tbody"></tbody>
       </table>
     </div>
-    <button class="btn-ghost" onclick="addFGRow()" style="margin-top:10px">+ Add observation</button>
-  </section>
+  </div>
 
-  <!-- AFFINITY DIAGRAM -->
-  <section id="panel-affinity" class="panel">
+  <!-- ══════════════════════════════════════════
+       PANEL 4 — AFFINITY DIAGRAM
+  ══════════════════════════════════════════ -->
+  <div id="panel-affinity" class="panel">
     <div class="panel-title">Affinity Diagram</div>
-    <div class="panel-sub">Add insight notes, drag them into clusters, and label emerging themes. Double-click a note to edit it in place.</div>
-    <div class="affinity-wrap">
-      <div class="affinity-toolbar">
-        <input class="aff-note-input" id="aff-input" type="text" placeholder="Type an insight or observation...">
-        <div class="aff-color-row" id="aff-colors"></div>
-        <button class="btn-primary" onclick="addAffNote()">+ Note</button>
-        <button class="btn-secondary" onclick="addClusterLabel()">+ Cluster Label</button>
-        <button class="btn-danger" style="margin-left:auto" onclick="document.getElementById('aff-board').innerHTML=''">Clear Board</button>
-      </div>
-      <div class="aff-board" id="aff-board"></div>
+    <div class="panel-sub">Type an insight, choose a color, and place it on the board. Drag notes into clusters. Double-click any note to edit it.</div>
+    <div class="affinity-controls">
+      <div class="color-row" id="color-swatches"></div>
+      <input type="text" id="affinity-input" placeholder="Type an insight..." style="flex:1;max-width:320px" onkeydown="if(event.key==='Enter')addNote()">
+      <button class="btn-primary" onclick="addNote()">Add Note</button>
+      <input type="text" id="cluster-input" placeholder="Cluster label..." style="width:160px">
+      <button class="btn-ghost" onclick="addClusterLabel()">+ Label</button>
+      <button class="btn-secondary" onclick="clearBoard()" style="margin-left:auto">Clear Board</button>
     </div>
-  </section>
+    <div class="affinity-board" id="affinity-board"></div>
+  </div>
 
-  <!-- USER FLOW -->
-  <section id="panel-user-flow" class="panel">
+  <!-- ══════════════════════════════════════════
+       PANEL 5 — USER FLOW
+  ══════════════════════════════════════════ -->
+  <div id="panel-user-flow" class="panel">
     <div class="panel-title">User Flow Transcription</div>
-    <div class="panel-sub">Log path elements and time intervals on the left. Pair with a timestamped, annotated session transcript on the right.</div>
+    <div class="panel-sub">Record path steps with timestamps on the left. Annotate the session transcript on the right.</div>
     <div class="flow-layout">
-      <div class="flow-col">
-        <div class="flow-col-label">Path Timeline</div>
-        <div class="flow-input-row">
-          <input type="text" id="fl-path" placeholder="Screen / action / path element...">
-          <input type="text" id="fl-time" placeholder="0:00" style="max-width:64px">
-          <input type="text" id="fl-note" placeholder="Annotation...">
-          <button class="btn-primary" onclick="addFlowStep()">+ Step</button>
-        </div>
+      <div class="flow-sidebar">
+        <div class="flow-sidebar-title">Path Timeline</div>
         <div id="flow-steps"></div>
+        <div class="add-row" style="margin-top:10px">
+          <input type="text" id="flow-path-input" placeholder="Screen or action..." style="flex:1">
+          <input type="text" id="flow-time-input" placeholder="0:00" style="width:60px">
+          <button class="btn-primary" onclick="addFlowStep()">Add</button>
+        </div>
       </div>
-      <div class="flow-col">
-        <div class="flow-col-label">Session Transcript</div>
+      <div class="transcript-wrap">
+        <div class="transcript-title">Session Transcript</div>
         <div class="audio-bar">
-          <span class="audio-label">Audio source:</span>
-          <label class="audio-upload-btn">Upload audio
-            <input type="file" accept="audio/*" style="display:none" onchange="handleAudio(event)">
-          </label>
-          <button class="ai-btn" onclick="simulateTranscript()">AI Transcribe</button>
+          <span class="audio-bar-label">Session Recording:</span>
+          <label class="audio-upload">Upload Audio <input type="file" accept="audio/*" style="display:none"></label>
+          <button class="ai-transcribe-btn" onclick="showTranscribeSample()">AI Transcribe</button>
         </div>
-        <div class="transcript-board" id="transcript-area">
-          <div style="color:var(--tds-muted);font-size:12px;font-style:italic;line-height:1.6">Upload a session recording and click AI Transcribe to generate a timestamped transcript — or add entries manually below.</div>
-        </div>
-        <div class="t-input-row">
-          <input type="text" id="t-stamp-in" placeholder="0:00" style="max-width:58px">
-          <input type="text" id="t-text-in" placeholder="Quote or observation...">
-          <input type="text" id="t-ann-in" placeholder="Annotation (optional)...">
-          <button class="btn-primary" onclick="addTranscriptEntry()">+ Entry</button>
+        <div class="transcript-area" id="transcript-area"></div>
+        <div class="add-row" style="margin-top:10px">
+          <input type="text" id="t-time" placeholder="0:00" style="width:55px">
+          <input type="text" id="t-text" placeholder="Transcript line..." style="flex:1">
+          <input type="text" id="t-note" placeholder="Annotation..." style="width:160px">
+          <button class="btn-primary" onclick="addTranscript()">Add</button>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <footer class="suite-footer">
-    <div class="footer-brand">Team Design <span>Studios</span></div>
-    <div style="display:flex;gap:16px">
-      <a href="https://teamdesignstudios.com" class="footer-link" target="_blank">teamdesignstudios.com</a>
-      <a href="https://docsend.com/view/s/9bzhycnqab7k92nq" class="footer-link" target="_blank">Portfolio</a>
-      <a href="https://www.linkedin.com/in/susanealdridge/" class="footer-link" target="_blank">LinkedIn</a>
+  <!-- ══════════════════════════════════════════
+       NEW PANEL 6 — AI TECHNIQUE SELECTOR
+  ══════════════════════════════════════════ -->
+  <div id="panel-ai-technique" class="panel">
+    <div class="panel-title">AI Technique Selector</div>
+    <div class="panel-sub">Select a use-case family to see which AI techniques are most suitable. Use this before technique or tool decisions to ensure the right intelligence for the problem.</div>
+    <div class="panel-cite">Grounded in the <a href="https://www.gartner.com" target="_blank">Gartner AI Techniques Heat Map</a> (PR_SM_4164700). Suitability ratings: High (H) · Medium (M) · Low (L).</div>
+
+    <div class="ait-layout">
+      <div class="ait-selector-panel">
+        <div class="ait-selector-label">Use-Case Family</div>
+        <div class="ait-use-case-list" id="ait-use-case-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+      <div class="ait-result-panel" id="ait-result-panel">
+        <div class="ait-empty">
+          <div class="ait-empty-icon">◎</div>
+          <div class="ait-empty-text">Select a use-case family<br>to see technique suitability ratings.</div>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
 
-</div>
+  <!-- ══════════════════════════════════════════
+       NEW PANEL 7 — AI PATTERN BROWSER
+  ══════════════════════════════════════════ -->
+  <div id="panel-pattern-browser" class="panel">
+    <div class="panel-title">AI Pattern Browser</div>
+    <div class="panel-sub">Browse AI interaction patterns organized by capability layer. Use this to identify relevant patterns when designing AI-enabled features.</div>
+    <div class="panel-cite">Sourced from the <a href="https://ai-interaction.com" target="_blank">Atlas of AI Interaction Design</a> by Brandon Harwood — a free, open-source reference for AI interaction design teams.</div>
+
+    <div class="apb-stats-row">
+      <div class="apb-stat"><div class="apb-stat-val">24</div><div class="apb-stat-label">AI Patterns</div></div>
+      <div class="apb-stat"><div class="apb-stat-val">23</div><div class="apb-stat-label">Human Actions</div></div>
+      <div class="apb-stat"><div class="apb-stat-val">47</div><div class="apb-stat-label">Data Types</div></div>
+      <div class="apb-stat"><div class="apb-stat-val">37</div><div class="apb-stat-label">Constraints</div></div>
+      <div class="apb-stat"><div class="apb-stat-val">35</div><div class="apb-stat-label">Touchpoints</div></div>
+    </div>
+
+    <div class="apb-layout">
+      <div class="apb-nav">
+        <div class="apb-nav-label">Capability Layer</div>
+        <div id="apb-layer-btns"></div>
+      </div>
+      <div class="apb-content" id="apb-content">
+        <div class="ait-empty">
+          <div class="ait-empty-icon">◈</div>
+          <div class="ait-empty-text">Select a capability layer<br>to browse its patterns.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="suite-footer">
+    <div class="footer-brand">Team Design <span>Studios</span></div>
+    <div class="footer-links">
+      <a href="https://teamdesignstudios.com" target="_blank">teamdesignstudios.com</a>
+      <a href="https://docsend.com/view/s/9bzhycnqab7k92nq" target="_blank">Portfolio</a>
+      <a href="https://www.linkedin.com/in/susanealdridge/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+</div><!-- /app-shell -->
 
 <script>
-// ── TAB NAVIGATION ──
-function switchTab(tab, btn) {
+/* ── TAB SWITCHING ── */
+function switchTab(id, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + tab).classList.add('active');
-  btn.classList.add('active');
-  if (tab === 'heatmap') setTimeout(initHeatCanvas, 80);
+  document.getElementById('panel-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
-// ── CARD SORTING ──
-let cards = ['Navigation', 'Search', 'Profile', 'Settings', 'Help', 'Notifications', 'Dashboard', 'History', 'Reports', 'Favorites'];
-let categories = ['Feature', 'Information', 'Action', 'Support'];
-let cardLocations = {};
-cards.forEach(c => cardLocations[c] = 'pool');
+/* ══════════════════════════════════════════════
+   CARD SORT
+══════════════════════════════════════════════ */
+const defaultCards = ['Homepage','Search','Product Detail','Cart','Checkout','Account Settings','Order History','Help Center','Category Browse','Filters','Reviews','Wishlist','Compare','Notifications'];
+const defaultCats = ['Navigation','Shopping','Account','Support'];
+let draggedCard = null;
 
-function renderCards() {
-  const pool = document.getElementById('card-pool');
-  const cats = document.getElementById('sort-categories');
+function initCardSort() {
+  const pool = document.getElementById('unsorted-pool');
   pool.innerHTML = '';
+  defaultCards.forEach(c => pool.appendChild(makeCard(c)));
+  const cats = document.getElementById('sort-categories');
   cats.innerHTML = '';
-  cards.filter(c => cardLocations[c] === 'pool').forEach(c => pool.appendChild(makeCard(c)));
-  categories.forEach(cat => {
-    const div = document.createElement('div');
-    div.className = 'sort-category';
-    div.setAttribute('ondragover', 'allowDrop(event)');
-    div.setAttribute('ondrop', `dropCard(event,'${cat}')`);
-    div.setAttribute('ondragleave', 'this.classList.remove("drag-over")');
-    div.innerHTML = `<div class="cat-label">${cat}</div>`;
-    cards.filter(c => cardLocations[c] === cat).forEach(c => div.appendChild(makeCard(c)));
-    cats.appendChild(div);
-  });
+  defaultCats.forEach(c => addCategory(c));
 }
 
-function makeCard(label) {
+function makeCard(text) {
   const d = document.createElement('div');
-  d.className = 'card-item';
-  d.draggable = true;
-  d.innerHTML = `<span>${label}</span><div class="card-dot"></div>`;
-  d.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', label); d.classList.add('dragging'); });
-  d.addEventListener('dragend', () => d.classList.remove('dragging'));
+  d.className = 'card'; d.textContent = text; d.draggable = true;
+  d.ondragstart = e => { draggedCard = d; setTimeout(() => d.classList.add('dragging'), 0); };
+  d.ondragend = () => d.classList.remove('dragging');
   return d;
 }
 
-function allowDrop(e) {
-  e.preventDefault();
-  if (e.currentTarget.classList.contains('sort-category')) e.currentTarget.classList.add('drag-over');
-}
-
-function dropCard(e, loc) {
-  e.preventDefault();
-  document.querySelectorAll('.sort-category').forEach(c => c.classList.remove('drag-over'));
-  const label = e.dataTransfer.getData('text/plain');
-  if (label) cardLocations[label] = loc;
-  renderCards();
+function addCategory(name) {
+  const n = name || document.getElementById('new-cat-input').value.trim();
+  if (!n) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'sort-cat';
+  wrap.innerHTML = `<div class="sort-cat-hdr"><span class="sort-cat-name">${n}</span><button class="fg-del" onclick="this.closest('.sort-cat').remove()">✕</button></div><div class="sort-cat-cards"></div>`;
+  const cards = wrap.querySelector('.sort-cat-cards');
+  wrap.ondragover = e => { e.preventDefault(); wrap.classList.add('drag-over'); };
+  wrap.ondragleave = () => wrap.classList.remove('drag-over');
+  wrap.ondrop = e => { e.preventDefault(); wrap.classList.remove('drag-over'); if (draggedCard) cards.appendChild(draggedCard); };
+  document.getElementById('sort-categories').appendChild(wrap);
+  if (!name) document.getElementById('new-cat-input').value = '';
 }
 
 function addCard() {
-  const inp = document.getElementById('new-card-input');
-  const val = inp.value.trim();
-  if (!val) return;
-  cards.push(val);
-  cardLocations[val] = 'pool';
-  inp.value = '';
-  renderCards();
+  const v = document.getElementById('new-card-input').value.trim();
+  if (!v) return;
+  document.getElementById('unsorted-pool').appendChild(makeCard(v));
+  document.getElementById('new-card-input').value = '';
 }
 
-function addCategory() {
-  const inp = document.getElementById('new-cat-input');
-  const val = inp.value.trim();
-  if (!val) return;
-  categories.push(val);
-  inp.value = '';
-  renderCards();
+function resetSort() { initCardSort(); }
+
+initCardSort();
+
+/* ══════════════════════════════════════════════
+   HEAT MAP
+══════════════════════════════════════════════ */
+const hmCanvas = document.getElementById('hm-canvas');
+const hmCtx = hmCanvas.getContext('2d');
+let hmDots = [];
+
+function drawMockup() {
+  hmCtx.clearRect(0, 0, 720, 480);
+  hmCtx.fillStyle = '#f8f7f5'; hmCtx.fillRect(0, 0, 720, 480);
+  // nav bar
+  hmCtx.fillStyle = '#2d4a3e'; hmCtx.fillRect(0, 0, 720, 52);
+  hmCtx.fillStyle = '#fff'; hmCtx.font = '600 13px DM Sans,sans-serif';
+  hmCtx.fillText('Team Design Studios', 20, 32);
+  ['Home','Work','About','Contact'].forEach((t, i) => { hmCtx.fillStyle = '#fff'; hmCtx.font = '12px DM Sans,sans-serif'; hmCtx.fillText(t, 460 + i * 68, 32); });
+  // hero
+  hmCtx.fillStyle = '#e8f0ec'; hmCtx.fillRect(0, 52, 720, 180);
+  hmCtx.fillStyle = '#2d4a3e'; hmCtx.font = '600 22px DM Serif Display,serif'; hmCtx.fillText('Design Intelligence.', 60, 120);
+  hmCtx.fillStyle = '#6b6b6b'; hmCtx.font = '13px DM Sans,sans-serif'; hmCtx.fillText('Research-grounded. Strategy-led. Craft-executed.', 60, 148);
+  hmCtx.fillStyle = '#c4963a'; hmCtx.fillRect(60, 168, 130, 36); hmCtx.fillStyle = '#fff'; hmCtx.font = '600 12px DM Sans,sans-serif'; hmCtx.fillText('View Portfolio', 97, 191);
+  // cards
+  [[40,252,200,160,'Card Sorting'],[260,252,200,160,'Heat Map'],[480,252,200,160,'Field Guide']].forEach(([x,y,w,h,t]) => {
+    hmCtx.fillStyle = '#fff'; hmCtx.strokeStyle = '#e0ddd6'; hmCtx.lineWidth = .5;
+    hmCtx.fillRect(x,y,w,h); hmCtx.strokeRect(x,y,w,h);
+    hmCtx.fillStyle = '#2d4a3e'; hmCtx.font = '500 12px DM Sans,sans-serif'; hmCtx.fillText(t, x+14, y+28);
+    hmCtx.fillStyle = '#e0ddd6'; hmCtx.fillRect(x+14, y+44, w-28, 6); hmCtx.fillRect(x+14, y+58, w-60, 6); hmCtx.fillRect(x+14, y+72, w-40, 6);
+  });
+  // footer
+  hmCtx.fillStyle = '#1a1a1a'; hmCtx.fillRect(0, 432, 720, 48);
+  hmCtx.fillStyle = '#6b6b6b'; hmCtx.font = '11px DM Sans,sans-serif'; hmCtx.fillText('© 2026 Team Design Studios · Eternal Graphx LLC', 60, 460);
 }
 
-function resetSort() {
-  cards.forEach(c => cardLocations[c] = 'pool');
-  renderCards();
+function addHeat(e) {
+  const rect = hmCanvas.getBoundingClientRect();
+  const scaleX = 720 / rect.width;
+  const scaleY = 480 / rect.height;
+  const x = (e.clientX - rect.left) * scaleX;
+  const y = (e.clientY - rect.top) * scaleY;
+  hmDots.push({x, y});
+  renderHeatmap();
+  updateHmStats(x, y);
 }
 
-renderCards();
-
-// ── HEAT MAP ──
-let heatPoints = [];
-let clickCount = 0;
-let heatCtx = null;
-
-function initHeatCanvas() {
-  const wrap = document.getElementById('heatmap-wrap');
-  const canvas = document.getElementById('heat-canvas');
-  canvas.width = wrap.offsetWidth;
-  canvas.height = wrap.offsetHeight;
-  heatCtx = canvas.getContext('2d');
-  drawHeat();
-}
-
-window.addEventListener('resize', () => {
-  if (document.getElementById('panel-heatmap').classList.contains('active')) initHeatCanvas();
-});
-
-function recordClick(e) {
-  const wrap = document.getElementById('heatmap-wrap');
-  const rect = wrap.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  heatPoints.push({ x, y });
-  clickCount++;
-  document.getElementById('click-count').textContent = clickCount;
-  const pct = y / wrap.offsetHeight;
-  const zone = pct < 0.15 ? 'Navigation bar' : pct < 0.5 ? 'Hero / primary area' : pct < 0.75 ? 'Content row' : 'Lower content';
-  document.getElementById('hot-zone').textContent = zone;
-  if (!heatCtx) initHeatCanvas();
-  drawHeat();
-}
-
-function drawHeat() {
-  if (!heatCtx) return;
-  const canvas = document.getElementById('heat-canvas');
-  heatCtx.clearRect(0, 0, canvas.width, canvas.height);
-  heatPoints.forEach(p => {
-    const nearby = heatPoints.filter(q => Math.hypot(q.x - p.x, q.y - p.y) < 38).length;
-    const alpha = Math.min(0.14 * nearby, 0.82);
-    const grad = heatCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 40);
-    grad.addColorStop(0, `rgba(196,150,58,${alpha})`);
-    grad.addColorStop(0.5, `rgba(196,150,58,${alpha * 0.4})`);
-    grad.addColorStop(1, 'rgba(196,150,58,0)');
-    heatCtx.fillStyle = grad;
-    heatCtx.beginPath();
-    heatCtx.arc(p.x, p.y, 40, 0, Math.PI * 2);
-    heatCtx.fill();
+function renderHeatmap() {
+  drawMockup();
+  hmDots.forEach(d => {
+    const g = hmCtx.createRadialGradient(d.x, d.y, 0, d.x, d.y, 28);
+    g.addColorStop(0, 'rgba(163,45,45,0.55)');
+    g.addColorStop(0.5, 'rgba(196,150,58,0.3)');
+    g.addColorStop(1, 'rgba(44,74,62,0.0)');
+    hmCtx.fillStyle = g;
+    hmCtx.beginPath(); hmCtx.arc(d.x, d.y, 28, 0, Math.PI * 2); hmCtx.fill();
   });
 }
 
-function loadHeatURL() {
-  const url = document.getElementById('heatmap-url').value.trim();
-  if (!url) return;
-  const content = document.getElementById('heatmap-content');
-  content.innerHTML = `<div class="url-mode-banner">Live URL mode — click tracking active: ${url}</div><iframe class="heatmap-iframe" src="${url}" style="top:28px;height:calc(100% - 28px)"></iframe>`;
-  content.style.minHeight = '400px';
-  document.getElementById('heat-mode').textContent = 'Live URL';
-  clearHeat();
-  setTimeout(initHeatCanvas, 250);
+function updateHmStats(x, y) {
+  document.getElementById('hm-total').textContent = hmDots.length;
+  const zone = y < 52 ? 'Navigation Bar' : y < 232 ? 'Hero / CTA Area' : y < 412 ? 'Content Cards' : 'Footer';
+  const intensity = hmDots.length > 20 ? 'hot' : hmDots.length > 8 ? 'warm' : 'cool';
+  document.getElementById('hm-zone-val').textContent = zone;
+  const el = document.getElementById('hm-zone-label');
+  el.className = 'hm-zone ' + intensity;
+  el.textContent = intensity === 'hot' ? '⬤ High Density' : intensity === 'warm' ? '⬤ Moderate Activity' : '⬤ Low Activity';
 }
 
-function resetHeatMock() {
-  const content = document.getElementById('heatmap-content');
-  content.className = 'heatmap-mock';
-  content.style.minHeight = '';
-  content.innerHTML = `
-    <div class="mock-nav">
-      <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
-      <div class="mock-url-pill">teamdesignstudios.com</div>
-    </div>
-    <div class="mock-hero">[ hero / primary content area ]</div>
-    <div class="mock-row"><div class="mock-block"></div><div class="mock-block"></div><div class="mock-block"></div></div>
-    <div class="mock-row"><div class="mock-block" style="flex:2"></div><div class="mock-block"></div></div>`;
-  document.getElementById('heatmap-url').value = '';
-  document.getElementById('heat-mode').textContent = 'Mockup';
-  clearHeat();
-  setTimeout(initHeatCanvas, 80);
-}
+function resetHeatmap() { hmDots = []; drawMockup(); document.getElementById('hm-total').textContent = '0'; document.getElementById('hm-zone-val').textContent = '—'; document.getElementById('hm-zone-label').className = 'hm-zone cool'; document.getElementById('hm-zone-label').textContent = 'No data yet'; }
+function loadHmUrl() { alert('URL loading available in hosted/electron version.\nIn this build, interact with the mockup canvas above.'); }
+function exportHeatmap() { const a = document.createElement('a'); a.download = 'tds-heatmap.png'; a.href = hmCanvas.toDataURL(); a.click(); }
 
-function clearHeat() {
-  heatPoints = [];
-  clickCount = 0;
-  document.getElementById('click-count').textContent = '0';
-  document.getElementById('hot-zone').textContent = '—';
-  if (heatCtx) {
-    const c = document.getElementById('heat-canvas');
-    heatCtx.clearRect(0, 0, c.width, c.height);
-  }
-}
+drawMockup();
 
-// ── FIELD GUIDE ──
-const fgColumns = {
-  interview: ['#', 'Time', 'Participant', 'Question', 'Response', 'Behavior Observed', 'Insight', 'Severity', 'Comments'],
-  usability: ['#', 'Time', 'Task', 'Step', 'Action', 'Error', 'Completion', 'Insight', 'Comments'],
-  contextual: ['#', 'Time', 'Context', 'Behavior', 'Artifact', 'Quote', 'Pattern', 'Note', 'Comments'],
-  survey: ['#', 'Item', 'Response', 'Frequency', 'Theme', 'Insight', 'Priority', 'Note', 'Comments']
+/* ══════════════════════════════════════════════
+   FIELD GUIDE + DIIS LENS FILTER
+══════════════════════════════════════════════ */
+const fgMethods = {
+  interview:  {cols:['Participant','Question Asked','Response Summary','Observed Behavior','DIIS Lens','Comments']},
+  usability:  {cols:['Task','Success','Time on Task','Errors Noted','Observation','DIIS Lens','Comments']},
+  contextual: {cols:['Setting','Activity Observed','Artifact Used','Workaround','Insight','DIIS Lens','Comments']},
+  survey:     {cols:['Question','Response Theme','Frequency','Outlier Noted','Implication','DIIS Lens','Comments']},
 };
 
-let fgRowCount = 0;
-
-function updateFGColumns() {
-  const method = document.getElementById('fg-method').value;
-  const cols = fgColumns[method];
-  document.getElementById('fg-thead').innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}<th></th></tr>`;
-  document.getElementById('fg-tbody').innerHTML = '';
-  fgRowCount = 0;
-  addFGRow();
-}
-
-function addFGRow() {
-  const method = document.getElementById('fg-method').value;
-  const cols = fgColumns[method];
-  const tbody = document.getElementById('fg-tbody');
-  fgRowCount++;
-  const n = fgRowCount;
-  const id = 'fg-' + Date.now();
-  const tr = document.createElement('tr');
-  tr.id = id;
-  tr.innerHTML = cols.map((col, i) => {
-    if (i === 0) return `<td class="row-num">${n}</td>`;
-    if (col === 'Severity' || col === 'Priority') return `<td style="min-width:80px"><select style="font-size:12px;padding:7px 8px;border:none;background:transparent;color:var(--tds-ink);width:100%;font-family:'DM Sans',sans-serif"><option>—</option><option>High</option><option>Medium</option><option>Low</option></select></td>`;
-    if (col === 'Completion') return `<td style="min-width:80px"><select style="font-size:12px;padding:7px 8px;border:none;background:transparent;color:var(--tds-ink);width:100%;font-family:'DM Sans',sans-serif"><option>—</option><option>Yes</option><option>Partial</option><option>No</option></select></td>`;
-    if (col === 'Comments') return `<td style="min-width:160px"><textarea placeholder="Researcher notes..." rows="2"></textarea></td>`;
-    return `<td style="min-width:100px"><input type="text" placeholder="${col}..."></td>`;
-  }).join('') + `<td class="del-cell"><button class="del-btn" onclick="document.getElementById('${id}').remove()">×</button></td>`;
-  tbody.appendChild(tr);
-}
-
-function clearFG() {
-  document.getElementById('fg-tbody').innerHTML = '';
-  fgRowCount = 0;
-  addFGRow();
-}
-
-function exportFG() {
-  const method = document.getElementById('fg-method').value;
-  const cols = fgColumns[method];
-  const rows = document.querySelectorAll('#fg-tbody tr');
-  let csv = cols.join(',') + '\n';
-  rows.forEach(row => {
-    const cells = row.querySelectorAll('td input, td select, td textarea');
-    const vals = Array.from(cells).map(c => '"' + (c.value || '').replace(/"/g, '""') + '"');
-    csv += vals.join(',') + '\n';
-  });
-  const today = new Date().toISOString().split('T')[0];
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = `TDS_FieldGuide_${method}_${today}.csv`;
-  a.click();
-}
-
-updateFGColumns();
-
-// ── AFFINITY DIAGRAM ──
-const affPalette = [
-  { bg: '#fef9e7', border: '#f7dc6f', text: '#7d6608' },
-  { bg: '#e8f8f5', border: '#76d7c4', text: '#0e6655' },
-  { bg: '#f9ebea', border: '#f1948a', text: '#922b21' },
-  { bg: '#eaf2ff', border: '#7fb3f5', text: '#1a5276' },
-  { bg: '#f5eef8', border: '#c39bd3', text: '#6c3483' },
+const diisLenses = [
+  {name:'Association', def:'How does the person connect this to prior knowledge or experience?'},
+  {name:'Behavior', def:'What actions, habits, or patterns are observable in context?'},
+  {name:'Persuasion', def:'What motivates, compels, or creates resistance in this person?'},
+  {name:'Emotion', def:'What affective states are present or being managed?'},
+  {name:'Perception', def:'How is the person interpreting and making sense of the experience?'},
+  {name:'Cognition', def:'What mental load, attention, or decision-making is at work?'},
 ];
-let selColor = 0;
-let noteCounter = 0;
 
-const colorRow = document.getElementById('aff-colors');
-affPalette.forEach((c, i) => {
-  const dot = document.createElement('div');
-  dot.className = 'aff-dot' + (i === 0 ? ' selected' : '');
-  dot.style.cssText = `background:${c.bg};border-color:${i === 0 ? 'var(--tds-ink)' : c.border}`;
-  dot.title = ['Yellow', 'Teal', 'Red', 'Blue', 'Purple'][i];
-  dot.onclick = () => {
-    selColor = i;
-    document.querySelectorAll('.aff-dot').forEach((d, j) => {
-      d.classList.toggle('selected', j === i);
-      d.style.borderColor = j === i ? 'var(--tds-ink)' : affPalette[j].border;
+let selectedLenses = new Set();
+let diisExpanded = true;
+
+function initDiis() {
+  const grid = document.getElementById('diis-lenses-grid');
+  diisLenses.forEach(l => {
+    const d = document.createElement('div');
+    d.className = 'diis-lens';
+    d.innerHTML = `<div class="diis-lens-name">${l.name}</div><div class="diis-lens-def">${l.def}</div>`;
+    d.onclick = () => {
+      if (selectedLenses.has(l.name)) { selectedLenses.delete(l.name); d.classList.remove('selected'); }
+      else { selectedLenses.add(l.name); d.classList.add('selected'); }
+      updateDiisSummary();
+    };
+    grid.appendChild(d);
+  });
+}
+
+function updateDiisSummary() {
+  const s = document.getElementById('diis-summary');
+  if (selectedLenses.size === 0) s.innerHTML = 'No lenses selected — all dimensions will be observed.';
+  else s.innerHTML = `<strong>Active lenses (${selectedLenses.size}):</strong> ${[...selectedLenses].join(' · ')}`;
+}
+
+function toggleDiis() {
+  diisExpanded = !diisExpanded;
+  document.getElementById('diis-body').style.display = diisExpanded ? '' : 'none';
+  document.getElementById('diis-toggle-btn').textContent = diisExpanded ? 'Collapse' : 'Expand';
+}
+
+let fgRows = [];
+function renderFieldGuide() {
+  const method = document.getElementById('fg-method').value;
+  const cols = fgMethods[method].cols;
+  const thead = document.getElementById('fg-thead');
+  const tbody = document.getElementById('fg-tbody');
+  thead.innerHTML = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '<th style="width:30px"></th></tr>';
+  tbody.innerHTML = '';
+  fgRows.forEach((row, ri) => {
+    const tr = document.createElement('tr');
+    cols.forEach((_, ci) => {
+      const td = document.createElement('td');
+      const isComment = ci === cols.length - 1;
+      const el = isComment ? document.createElement('textarea') : document.createElement('input');
+      el.type = 'text';
+      el.value = row[ci] || '';
+      if (isComment) { el.rows = 2; }
+      el.oninput = e => { fgRows[ri][ci] = e.target.value; };
+      if (cols[ci] === 'DIIS Lens') {
+        const sel = document.createElement('select');
+        sel.style.cssText = 'font-size:11px;width:100%';
+        ['—', ...diisLenses.map(l => l.name)].forEach(o => {
+          const opt = document.createElement('option'); opt.value = o; opt.textContent = o;
+          if (row[ci] === o) opt.selected = true;
+          sel.appendChild(opt);
+        });
+        sel.onchange = e => { fgRows[ri][ci] = e.target.value; };
+        td.appendChild(sel);
+      } else { td.appendChild(el); }
+      tr.appendChild(td);
     });
-  };
-  colorRow.appendChild(dot);
-});
+    const del = document.createElement('td');
+    del.innerHTML = `<button class="fg-del" onclick="fgRows.splice(${ri},1);renderFieldGuide()">✕</button>`;
+    tr.appendChild(del);
+    tbody.appendChild(tr);
+  });
+}
 
-function addAffNote() {
-  const inp = document.getElementById('aff-input');
-  const text = inp.value.trim();
-  if (!text) return;
-  const board = document.getElementById('aff-board');
-  const col = affPalette[selColor];
-  const id = 'note-' + noteCounter++;
-  const x = 16 + Math.random() * Math.max(10, board.offsetWidth - 160);
-  const y = 16 + Math.random() * Math.max(10, board.offsetHeight - 110);
+function addFgRow() {
+  const method = document.getElementById('fg-method').value;
+  fgRows.push(new Array(fgMethods[method].cols.length).fill(''));
+  renderFieldGuide();
+}
+
+function exportFg() {
+  const method = document.getElementById('fg-method').value;
+  const cols = fgMethods[method].cols;
+  const lines = [cols.join(','), ...fgRows.map(r => r.map(c => `"${(c||'').replace(/"/g,'""')}"`).join(','))];
+  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `TDS_FieldGuide_${method}_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+}
+
+initDiis();
+renderFieldGuide();
+
+/* ══════════════════════════════════════════════
+   AFFINITY DIAGRAM
+══════════════════════════════════════════════ */
+const noteColors = ['#f5edd8','#e8f0ec','#fce8e8','#e8eef5','#f0e8f5','#e8f5f0'];
+const noteBorders = ['#c4963a','#2d4a3e','#a32d2d','#2d4a7a','#6b2d9a','#2d7a4a'];
+let activeColor = 0;
+let draggingNote = null, dragOffX = 0, dragOffY = 0;
+
+function initAffinity() {
+  const swatches = document.getElementById('color-swatches');
+  noteColors.forEach((c, i) => {
+    const s = document.createElement('div');
+    s.className = 'color-swatch' + (i === 0 ? ' active' : '');
+    s.style.background = c; s.style.border = `.5px solid ${noteBorders[i]}`;
+    s.onclick = () => { activeColor = i; document.querySelectorAll('.color-swatch').forEach(x => x.classList.remove('active')); s.classList.add('active'); };
+    swatches.appendChild(s);
+  });
+}
+
+function addNote() {
+  const val = document.getElementById('affinity-input').value.trim();
+  if (!val) return;
+  const board = document.getElementById('affinity-board');
+  const rect = board.getBoundingClientRect();
   const note = document.createElement('div');
-  note.className = 'aff-note';
-  note.id = id;
-  note.style.cssText = `left:${x}px;top:${y}px;background:${col.bg};border:1px solid ${col.border};color:${col.text}`;
-  note.innerHTML = `<div class="aff-note-body" contenteditable="true">${text}</div><div class="aff-note-footer"><button class="aff-del" onclick="document.getElementById('${id}').remove()">×</button></div>`;
-  makeDraggable(note);
+  note.className = 'affinity-note';
+  note.style.cssText = `left:${20 + Math.random()*400}px;top:${20 + Math.random()*280}px;background:${noteColors[activeColor]};border:.5px solid ${noteBorders[activeColor]}`;
+  note.innerHTML = `<button class="affinity-note-del" onclick="this.parentNode.remove()">✕</button>${val}`;
+  note.ondblclick = () => { const t = prompt('Edit note:', note.childNodes[1]?.textContent || note.textContent.replace('✕','')); if (t !== null) note.childNodes[1].textContent = t; };
+  note.onmousedown = e => startDrag(e, note);
   board.appendChild(note);
-  inp.value = '';
+  document.getElementById('affinity-input').value = '';
 }
 
 function addClusterLabel() {
-  const board = document.getElementById('aff-board');
-  const label = document.createElement('div');
-  label.className = 'aff-cluster';
-  label.contentEditable = true;
-  label.style.cssText = 'left:20px;top:12px';
-  label.textContent = 'Theme label — click to edit';
-  makeDraggable(label);
-  board.appendChild(label);
+  const val = document.getElementById('cluster-input').value.trim();
+  if (!val) return;
+  const board = document.getElementById('affinity-board');
+  const lbl = document.createElement('input');
+  lbl.type = 'text'; lbl.value = val; lbl.className = 'affinity-label';
+  lbl.style.cssText = 'left:30px;top:10px;';
+  lbl.onmousedown = e => { if (e.target === lbl) return; startDrag(e, lbl); };
+  board.appendChild(lbl);
+  document.getElementById('cluster-input').value = '';
 }
 
-function makeDraggable(el) {
-  el.addEventListener('mousedown', e => {
-    if (e.target.classList.contains('aff-del') || e.target.classList.contains('aff-note-body') || e.target.classList.contains('aff-cluster')) return;
-    let ox = parseInt(el.style.left) || 0;
-    let oy = parseInt(el.style.top) || 0;
-    let sx = e.clientX, sy = e.clientY;
-    const mv = e2 => { el.style.left = (ox + e2.clientX - sx) + 'px'; el.style.top = (oy + e2.clientY - sy) + 'px'; };
-    const up = () => { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
-    document.addEventListener('mousemove', mv);
-    document.addEventListener('mouseup', up);
-    e.preventDefault();
-  });
+function startDrag(e, el) {
+  draggingNote = el;
+  const r = el.getBoundingClientRect(), br = el.parentNode.getBoundingClientRect();
+  dragOffX = e.clientX - (r.left - br.left); dragOffY = e.clientY - (r.top - br.top);
+  e.preventDefault();
 }
 
-// ── USER FLOW ──
-let flowSteps = [];
-let transcriptEntries = [];
+document.addEventListener('mousemove', e => {
+  if (!draggingNote) return;
+  const br = draggingNote.parentNode.getBoundingClientRect();
+  draggingNote.style.left = (e.clientX - br.left - dragOffX) + 'px';
+  draggingNote.style.top = (e.clientY - br.top - dragOffY) + 'px';
+});
+document.addEventListener('mouseup', () => draggingNote = null);
 
-function addFlowStep() {
-  const path = document.getElementById('fl-path').value.trim();
-  const time = document.getElementById('fl-time').value.trim() || '—';
-  const note = document.getElementById('fl-note').value.trim();
-  if (!path) return;
-  flowSteps.push({ path, time, note, id: Date.now() });
-  ['fl-path', 'fl-time', 'fl-note'].forEach(id => document.getElementById(id).value = '');
-  renderFlowSteps();
-}
+function clearBoard() { document.getElementById('affinity-board').innerHTML = ''; }
+initAffinity();
 
-function renderFlowSteps() {
+/* ══════════════════════════════════════════════
+   USER FLOW
+══════════════════════════════════════════════ */
+let flowSteps = [{path:'Homepage',time:'0:00',note:'Entry point'},{path:'Navigation → Work',time:'0:14',note:'Scanned nav items'},{path:'Portfolio Case Study',time:'0:38',note:'Clicked first project'}];
+let transcriptEntries = [{stamp:'0:00',text:'Participant lands on the homepage.',annotation:''},{stamp:'0:22',text:'"I\'m looking for examples of UX work."',annotation:'Task orientation'},{stamp:'0:45',text:'Clicks portfolio card without reading label.',annotation:'Learnability flag'}];
+
+function renderFlow() {
   const wrap = document.getElementById('flow-steps');
   wrap.innerHTML = '';
-  flowSteps.forEach((step, i) => {
-    const div = document.createElement('div');
-    div.className = 'flow-step';
-    div.innerHTML = `${i < flowSteps.length - 1 ? '<div class="flow-connector"></div>' : ''}
-      <div class="flow-node">${i + 1}</div>
-      <div class="flow-step-card">
-        <div class="flow-path">${step.path}</div>
-        <div class="flow-time">${step.time}</div>
-        ${step.note ? `<div class="flow-note-text">${step.note}</div>` : ''}
-      </div>
-      <button class="flow-del" onclick="removeFlowStep(${step.id})">×</button>`;
-    wrap.appendChild(div);
+  flowSteps.forEach((s, i) => {
+    const d = document.createElement('div'); d.className = 'flow-step';
+    d.innerHTML = `<div class="flow-step-num">${i+1}</div><div class="flow-step-body"><div class="flow-step-path">${s.path}</div><div class="flow-step-time">${s.time}</div>${s.note?`<div class="flow-step-note">${s.note}</div>`:''}</div><button class="flow-step-del" onclick="flowSteps.splice(${i},1);renderFlow()">✕</button>`;
+    wrap.appendChild(d);
   });
 }
 
-function removeFlowStep(id) {
-  flowSteps = flowSteps.filter(s => s.id !== id);
-  renderFlowSteps();
+function addFlowStep() {
+  const p = document.getElementById('flow-path-input').value.trim();
+  const t = document.getElementById('flow-time-input').value.trim();
+  if (!p) return;
+  flowSteps.push({path:p,time:t||'—',note:''});
+  renderFlow();
+  document.getElementById('flow-path-input').value = ''; document.getElementById('flow-time-input').value = '';
 }
 
-function addTranscriptEntry() {
-  const stamp = document.getElementById('t-stamp-in').value.trim();
-  const text = document.getElementById('t-text-in').value.trim();
-  const ann = document.getElementById('t-ann-in').value.trim();
-  if (!text) return;
-  const area = document.getElementById('transcript-area');
-  if (transcriptEntries.length === 0) area.innerHTML = '';
-  transcriptEntries.push({ stamp, text, ann });
-  const entry = document.createElement('div');
-  entry.className = 't-entry';
-  entry.innerHTML = `<div class="t-stamp">${stamp || '—'}</div><div class="t-body"><div class="t-text">${text}</div>${ann ? `<div class="t-ann">↳ ${ann}</div>` : ''}</div>`;
-  area.appendChild(entry);
-  ['t-stamp-in', 't-text-in', 't-ann-in'].forEach(id => document.getElementById(id).value = '');
-}
-
-function handleAudio(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  e.target.parentElement.textContent = 'Audio: ' + file.name;
-}
-
-function simulateTranscript() {
+function renderTranscript() {
   const area = document.getElementById('transcript-area');
   area.innerHTML = '';
-  transcriptEntries = [];
-  const samples = [
-    { stamp: '0:04', text: 'Okay so I\'m looking for the main navigation first.', ann: 'Scans top of page — eyes move left to right' },
-    { stamp: '0:11', text: 'Hmm, I expected search to be more prominent here.', ann: 'Hesitation — expectation mismatch noted' },
-    { stamp: '0:19', text: 'I\'ll try clicking this... I\'m not sure if that\'s right.', ann: 'Uncertainty — exploratory behavior' },
-    { stamp: '0:27', text: 'Oh wait, there it is. That makes sense now.', ann: 'Recovery — task completion signal' },
-    { stamp: '0:35', text: 'The labels are a bit small for me on this section.', ann: 'Accessibility concern — font size / contrast' },
-  ];
-  samples.forEach(s => {
-    transcriptEntries.push(s);
-    const entry = document.createElement('div');
-    entry.className = 't-entry';
-    entry.innerHTML = `<div class="t-stamp">${s.stamp}</div><div class="t-body"><div class="t-text">${s.text}</div><div class="t-ann">↳ ${s.ann}</div></div>`;
-    area.appendChild(entry);
+  transcriptEntries.forEach(e => {
+    const d = document.createElement('div'); d.className = 'transcript-entry';
+    d.innerHTML = `<div class="t-stamp">${e.stamp}</div><div><div class="t-text">${e.text}</div>${e.annotation?`<div class="t-annotation">${e.annotation}</div>`:''}</div>`;
+    area.appendChild(d);
   });
 }
+
+function addTranscript() {
+  const t = document.getElementById('t-time').value.trim();
+  const txt = document.getElementById('t-text').value.trim();
+  const ann = document.getElementById('t-note').value.trim();
+  if (!txt) return;
+  transcriptEntries.push({stamp:t||'—',text:txt,annotation:ann});
+  renderTranscript();
+  ['t-time','t-text','t-note'].forEach(id => document.getElementById(id).value = '');
+}
+
+function showTranscribeSample() {
+  transcriptEntries.push({stamp:'0:52',text:'[AI Transcription] Participant: "This is exactly what I was looking for."',annotation:'Moment of delight — note trigger'});
+  renderTranscript();
+}
+
+renderFlow(); renderTranscript();
+
+/* ══════════════════════════════════════════════
+   NEW — AI TECHNIQUE SELECTOR DATA + LOGIC
+══════════════════════════════════════════════ */
+const aitData = [
+  {
+    name:'Prediction / Forecasting', id:'predict',
+    desc:'Estimating future states from historical patterns. Common in demand planning, risk modeling, and behavioral prediction.',
+    techniques:[
+      {name:'Generative Models', rating:'low', note:'Not suited — prone to hallucination in quantitative tasks. Use only for narrative synthesis of findings.'},
+      {name:'Nongenerative ML', rating:'high', note:'Primary technique. Statistical and algorithmic models excel here — regression, time-series, gradient boosting.'},
+      {name:'Optimization', rating:'low', note:'Supplements forecasting but not the primary driver for prediction tasks.'},
+      {name:'Simulation', rating:'high', note:'Monte Carlo and agent-based simulation effective for probabilistic forecasting under uncertainty.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Useful for deterministic thresholds or business rules layered onto ML predictions.'},
+      {name:'Graphs', rating:'low', note:'Useful for relational data inputs but not the core technique for forecasting.'},
+    ]
+  },
+  {
+    name:'Planning & Optimization', id:'planning',
+    desc:'Resource allocation, scheduling, routing, and constraint-satisfaction problems where a best solution must be found.',
+    techniques:[
+      {name:'Generative Models', rating:'low', note:'Not appropriate for structured optimization problems — outputs are non-deterministic.'},
+      {name:'Nongenerative ML', rating:'low', note:'Can inform constraints but not the primary planning engine.'},
+      {name:'Optimization', rating:'high', note:'Core technique — linear programming, integer programming, evolutionary algorithms. High fit.'},
+      {name:'Simulation', rating:'medium', note:'Useful for scenario testing and constraint validation alongside optimization.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Fast heuristics (greedy, local search) often practical alternatives to exact optimization.'},
+      {name:'Graphs', rating:'high', note:'Graph-based algorithms (shortest path, network flow) are native to many planning problems.'},
+    ]
+  },
+  {
+    name:'Decision Intelligence', id:'decision',
+    desc:'Augmenting or automating complex decisions involving multiple variables, tradeoffs, and stakeholder factors.',
+    techniques:[
+      {name:'Generative Models', rating:'low', note:'Insufficient transparency and auditability for high-stakes decisions. Use only to synthesize decision context.'},
+      {name:'Nongenerative ML', rating:'medium', note:'Classification and scoring models useful — but require explainability layers for organizational trust.'},
+      {name:'Optimization', rating:'high', note:'Multi-objective optimization is the core technique for complex decision tradeoffs.'},
+      {name:'Simulation', rating:'high', note:'Scenario simulation enables decision stress-testing before commitment.'},
+      {name:'Rules / Heuristics', rating:'high', note:'Codified business logic and decision trees remain highly effective and auditable.'},
+      {name:'Graphs', rating:'medium', note:'Knowledge graphs support contextual reasoning within decision frameworks.'},
+    ]
+  },
+  {
+    name:'Anomaly Detection', id:'anomaly',
+    desc:'Identifying unusual patterns, outliers, or deviations from expected behavior in data streams or logs.',
+    techniques:[
+      {name:'Generative Models', rating:'medium', note:'Can assist in identifying semantic anomalies in text but not appropriate for quantitative streams.'},
+      {name:'Nongenerative ML', rating:'high', note:'Primary technique — isolation forests, autoencoders, Z-score models, clustering all excel here.'},
+      {name:'Optimization', rating:'low', note:'Not applicable as a primary anomaly detection mechanism.'},
+      {name:'Simulation', rating:'medium', note:'Synthetic baseline generation useful for threshold calibration.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Threshold-based rules remain effective for known anomaly signatures.'},
+      {name:'Graphs', rating:'high', note:'Graph-based detection excels for network anomalies and relational fraud patterns.'},
+    ]
+  },
+  {
+    name:'Recommendation Systems', id:'recommend',
+    desc:'Surfacing relevant items, content, or actions based on user behavior, preferences, or context.',
+    techniques:[
+      {name:'Generative Models', rating:'medium', note:'Useful for natural language explanations of recommendations — not the core ranking engine.'},
+      {name:'Nongenerative ML', rating:'high', note:'Collaborative filtering, matrix factorization, and embedding models are the proven backbone.'},
+      {name:'Optimization', rating:'medium', note:'Useful for multi-objective ranking — balancing relevance, diversity, and business constraints.'},
+      {name:'Simulation', rating:'low', note:'Limited direct application to recommendation core.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Business rules (merchandising, eligibility) layer effectively on top of ML models.'},
+      {name:'Graphs', rating:'high', note:'Graph-based collaborative filtering and knowledge graphs enhance contextual recommendations.'},
+    ]
+  },
+  {
+    name:'Content Generation', id:'content',
+    desc:'Producing text, images, code, or other media outputs from prompts or structured inputs.',
+    techniques:[
+      {name:'Generative Models', rating:'high', note:'Primary and dominant technique. LLMs, diffusion models, and multimodal models are purpose-built here.'},
+      {name:'Nongenerative ML', rating:'low', note:'Not applicable for open-ended content generation.'},
+      {name:'Optimization', rating:'low', note:'Not applicable as a generation mechanism.'},
+      {name:'Simulation', rating:'high', note:'Simulation of scenarios can seed and structure generated content.'},
+      {name:'Rules / Heuristics', rating:'low', note:'Rule-based templates are brittle — superseded by generative approaches for most content tasks.'},
+      {name:'Graphs', rating:'low', note:'Knowledge graphs can ground and constrain generated content but are not generative themselves.'},
+    ]
+  },
+  {
+    name:'Conversational Interfaces', id:'converse',
+    desc:'Natural language interaction between humans and systems — chatbots, voice interfaces, AI assistants.',
+    techniques:[
+      {name:'Generative Models', rating:'high', note:'Dominant technique for open-domain conversation. LLMs enable fluent, contextual dialogue.'},
+      {name:'Nongenerative ML', rating:'high', note:'Intent classification, entity extraction, and dialogue management complement generative layers.'},
+      {name:'Optimization', rating:'low', note:'Not a primary driver — may apply to response ranking or retrieval.'},
+      {name:'Simulation', rating:'low', note:'Limited application in live conversational systems.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Dialog flow rules and fallback heuristics remain important for safety and predictability.'},
+      {name:'Graphs', rating:'high', note:'Knowledge graphs ground conversational AI in factual, structured domains.'},
+    ]
+  },
+  {
+    name:'Knowledge Discovery', id:'knowledge',
+    desc:'Surfacing patterns, insights, or relationships hidden within large datasets or document corpora.',
+    techniques:[
+      {name:'Generative Models', rating:'high', note:'LLMs excel at synthesizing findings across documents — ideal for qualitative analysis at scale.'},
+      {name:'Nongenerative ML', rating:'medium', note:'Clustering, topic modeling, and dimensionality reduction are effective for pattern discovery.'},
+      {name:'Optimization', rating:'low', note:'Not a primary knowledge discovery mechanism.'},
+      {name:'Simulation', rating:'low', note:'Not applicable.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Ontologies and domain rules can guide and constrain discovery.'},
+      {name:'Graphs', rating:'high', note:'Knowledge graphs are native to relationship and entity discovery across large corpora.'},
+    ]
+  },
+  {
+    name:'Segmentation / Classification', id:'segment',
+    desc:'Grouping entities into meaningful categories based on shared characteristics, behaviors, or attributes.',
+    techniques:[
+      {name:'Generative Models', rating:'medium', note:'Useful for semantic classification of text — zero-shot and few-shot classification with LLMs.'},
+      {name:'Nongenerative ML', rating:'high', note:'Primary technique — k-means, hierarchical clustering, random forests, and SVMs are proven.'},
+      {name:'Optimization', rating:'low', note:'Not a primary classification mechanism.'},
+      {name:'Simulation', rating:'low', note:'Not applicable.'},
+      {name:'Rules / Heuristics', rating:'high', note:'Rule-based segmentation remains highly effective and interpretable for business-defined segments.'},
+      {name:'Graphs', rating:'high', note:'Community detection and graph clustering effective for relational entity segmentation.'},
+    ]
+  },
+  {
+    name:'Perception (Vision / Audio)', id:'perception',
+    desc:'Processing and interpreting sensory inputs — image recognition, speech recognition, multimodal analysis.',
+    techniques:[
+      {name:'Generative Models', rating:'high', note:'Multimodal models (vision-language, audio-language) are state-of-the-art for perception tasks.'},
+      {name:'Nongenerative ML', rating:'high', note:'Convolutional networks, transformers for audio/vision remain the backbone of perception systems.'},
+      {name:'Optimization', rating:'low', note:'Not applicable as a primary perception mechanism.'},
+      {name:'Simulation', rating:'low', note:'Not applicable.'},
+      {name:'Rules / Heuristics', rating:'low', note:'Rule-based vision (edge detection, thresholding) is largely superseded by ML approaches.'},
+      {name:'Graphs', rating:'low', note:'Limited application in core perception pipelines.'},
+    ]
+  },
+  {
+    name:'Intelligent Automation', id:'automation',
+    desc:'Automating multi-step workflows that require judgment — beyond simple rule-based RPA.',
+    techniques:[
+      {name:'Generative Models', rating:'medium', note:'Agentic LLM workflows enable flexible automation — but require careful guardrails for reliability.'},
+      {name:'Nongenerative ML', rating:'high', note:'Process mining, predictive routing, and classification-driven automation are proven.'},
+      {name:'Optimization', rating:'low', note:'Not a primary automation driver — applies to specific subproblems within workflows.'},
+      {name:'Simulation', rating:'low', note:'Limited application.'},
+      {name:'Rules / Heuristics', rating:'high', note:'Deterministic rules remain essential for safety, compliance, and predictability in automation.'},
+      {name:'Graphs', rating:'medium', note:'Process graphs and dependency modeling useful for workflow automation design.'},
+    ]
+  },
+  {
+    name:'Autonomous Systems', id:'autonomous',
+    desc:'Systems that perceive, decide, and act in physical or digital environments with minimal human intervention.',
+    techniques:[
+      {name:'Generative Models', rating:'medium', note:'Emerging use in world models and planning — but reliability constraints limit deployment in physical systems.'},
+      {name:'Nongenerative ML', rating:'medium', note:'Reinforcement learning and sensor fusion models are core to autonomous decision-making.'},
+      {name:'Optimization', rating:'high', note:'Real-time optimization (path planning, resource allocation) is fundamental to autonomous operation.'},
+      {name:'Simulation', rating:'medium', note:'Simulation environments are essential for training and validation.'},
+      {name:'Rules / Heuristics', rating:'medium', note:'Safety rules and behavior trees remain critical layers in autonomous system design.'},
+      {name:'Graphs', rating:'low', note:'Limited direct application.'},
+    ]
+  },
+];
+
+function initAit() {
+  const list = document.getElementById('ait-use-case-list');
+  aitData.forEach(uc => {
+    const btn = document.createElement('button');
+    btn.className = 'ait-use-case-btn';
+    btn.textContent = uc.name;
+    btn.onclick = () => {
+      document.querySelectorAll('.ait-use-case-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAitResult(uc);
+    };
+    list.appendChild(btn);
+  });
+}
+
+function renderAitResult(uc) {
+  const panel = document.getElementById('ait-result-panel');
+  const sorted = [...uc.techniques].sort((a,b) => {
+    const order = {high:0,medium:1,low:2};
+    return order[a.rating] - order[b.rating];
+  });
+  panel.innerHTML = `
+    <div class="ait-result-title">${uc.name}</div>
+    <div class="ait-result-desc">${uc.desc}</div>
+    <div class="ait-technique-grid">
+      ${sorted.map(t => `
+        <div class="ait-technique-row ${t.rating}">
+          <div class="ait-tech-name">${t.name}</div>
+          <div><span class="ait-badge ${t.rating}">${t.rating.toUpperCase()}</span></div>
+          <div class="ait-tech-note">${t.note}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="ait-footnote">Source: <a href="https://www.gartner.com" target="_blank">Gartner AI Techniques Heat Map</a> (PR_SM_4164700). Suitability ratings reflect Gartner's analysis of technique fit by use-case family. Practitioner notes by Team Design Studios.</div>
+  `;
+}
+
+initAit();
+
+/* ══════════════════════════════════════════════
+   NEW — AI PATTERN BROWSER DATA + LOGIC
+══════════════════════════════════════════════ */
+const apbLayers = [
+  {
+    id:'inbound', name:'Inbound', sub:'Sensing & Structuring',
+    desc:'Inbound patterns govern how AI systems receive, interpret, and structure information from the world. These are the input-layer capabilities — foundational to everything that follows.',
+    patterns:[
+      {name:'Detect', desc:'Identify the presence or absence of a specific condition, entity, or event in data or environment.', detail:'Detection is binary or probabilistic — is X present? At what confidence? Common in anomaly monitoring, content moderation, and environmental sensing. Design for: threshold transparency, confidence display, and graceful handling of uncertainty.'},
+      {name:'Extract', desc:'Pull structured information from unstructured or semi-structured sources.', detail:'Extraction transforms raw input (text, image, audio) into structured data the system can reason about. Key design considerations: what is extracted vs. discarded, error rate visibility, and user correction pathways.'},
+      {name:'Estimate', desc:'Produce an approximate value or state when exact measurement is not available.', detail:'Estimation is used when ground truth is unavailable — forecasting, imputation, inference. Design must communicate uncertainty ranges and avoid presenting estimates as facts.'},
+      {name:'Monitor', desc:'Continuously observe a system, environment, or data stream over time.', detail:'Monitoring is persistent, ongoing detection. Design considerations: alert fatigue, threshold calibration, dashboard information density, and escalation pathways.'},
+      {name:'Retrieve', desc:'Locate and surface relevant information from a corpus or knowledge base in response to a query.', detail:'Retrieval is the foundation of RAG (Retrieval-Augmented Generation) systems. Key design: result relevance signaling, source attribution, and handling of no-result states.'},
+      {name:'Segment', desc:'Divide a population, dataset, or input into meaningful groups based on shared characteristics.', detail:'Segmentation makes complex data tractable. Design for: segment interpretability, edge case handling, and avoiding reductive categorization of people.'},
+      {name:'Authenticate / Identify', desc:'Verify the identity of a person, entity, or artifact.', detail:'Biometric, credential-based, or behavioral authentication. Design must balance security, privacy, accessibility (failure modes for users with disabilities), and algorithmic bias risk.'},
+      {name:'Grant / Revoke Consent', desc:'Capture, manage, and enforce user permissions and data use agreements.', detail:'Consent is foundational to trustworthy AI. Design for: genuine informed choice (not dark patterns), granular control, easy revocation, and persistent visibility of what has been consented to.'},
+    ]
+  },
+  {
+    id:'internal', name:'Internal', sub:'Reasoning & Deciding',
+    desc:'Internal patterns describe how AI systems process information to produce judgments, predictions, and decisions. These are the intelligence-layer capabilities — where inputs become insight.',
+    patterns:[
+      {name:'Explain / Interpret', desc:'Generate human-understandable accounts of why the system produced a given output.', detail:'Explainability is foundational to trust. Design for: appropriate depth (summary vs. detailed), audience calibration, and avoiding post-hoc rationalization that misrepresents the actual model behavior.'},
+      {name:'Forecast', desc:'Project likely future states based on historical patterns and current conditions.', detail:'Forecasting outputs must communicate confidence intervals, scenario ranges, and the assumptions underlying the model. Design against false precision — a point estimate without uncertainty is misleading.'},
+      {name:'Classify', desc:'Assign inputs to predefined categories based on learned patterns.', detail:'Classification is one of the most common ML tasks. Design considerations: class imbalance visibility, confidence thresholds, multi-label handling, and the cost asymmetry of different error types.'},
+      {name:'Match', desc:'Find the most similar or relevant item from a set relative to a query.', detail:'Matching underlies search, recommendation, and deduplication. Design for: relevance signaling, diversity (avoiding filter bubbles), and transparent ranking criteria.'},
+      {name:'Rank', desc:'Order a set of items by relevance, priority, or quality relative to a given criterion.', detail:'Ranking makes recommendation actionable. Key design: what criteria drive rank (and are they disclosed?), position bias awareness, and handling ties.'},
+      {name:'Regress', desc:'Predict a continuous output value from input features.', detail:'Regression produces numeric estimates — price, score, duration. Design must surface confidence intervals and handle out-of-distribution inputs gracefully.'},
+      {name:'Synthesize', desc:'Combine information from multiple sources into a coherent unified output.', detail:'Synthesis is what LLMs do at their core. Design for: source attribution, contradiction handling, and the risk of smoothing over important disagreements in the source material.'},
+      {name:'Verify', desc:'Check the accuracy, validity, or consistency of a claim, fact, or piece of data.', detail:'Verification is increasingly critical in AI-augmented workflows. Design for: confidence signaling, source citation, and clear distinction between verified and unverified states.'},
+    ]
+  },
+  {
+    id:'outbound', name:'Outbound', sub:'Expressing & Creating',
+    desc:'Outbound patterns govern how AI systems communicate, generate, and present outputs to humans. These are the expression-layer capabilities — where intelligence becomes experience.',
+    patterns:[
+      {name:'Generate Text', desc:'Produce natural language outputs — summaries, drafts, explanations, narratives.', detail:'Text generation is the most visible AI capability. Design for: tone calibration, length control, formatting consistency, and the risk of overconfident or fabricated outputs.'},
+      {name:'Generate Image', desc:'Create visual content from descriptions, data, or stylistic prompts.', detail:'Image generation has profound IP, consent, and representation implications. Design must address: attribution, bias in visual outputs, and appropriate disclosure of AI-generated content.'},
+      {name:'Generate Code', desc:'Produce functional programming code from natural language specifications.', detail:'Code generation accelerates development but introduces security and quality risks. Design for: test coverage, security review integration, and clear ownership of generated output.'},
+      {name:'Summarize', desc:'Condense a larger body of information into its essential points.', detail:'Summarization involves selection — what is included shapes what the reader believes. Design for: length control, faithfulness to source, and surfacing of important nuance that summary may elide.'},
+      {name:'Translate', desc:'Convert content from one language, format, or modality into another.', detail:'Translation — linguistic or format-based — involves interpretation. Design for: tone preservation, cultural adaptation, and quality indicators especially for high-stakes translations.'},
+      {name:'Narrate / Voice', desc:'Deliver information through spoken audio output.', detail:'Voice AI has distinct design requirements: prosody, pacing, interruption handling, and acoustic accessibility. Voice of AI (Anne Cantera) is a key reference for this pattern category.'},
+      {name:'Recommend', desc:'Surface relevant options, actions, or content tailored to user context.', detail:'Recommendation is among the highest-impact AI patterns for user experience. Design for: transparency of criteria, serendipity vs. relevance balance, and avoiding reinforcement of existing biases.'},
+      {name:'Alert / Notify', desc:'Surface time-sensitive information or required actions to the user.', detail:'Alerts must earn attention. Design for: urgency calibration, channel appropriateness, and the long-term cost of alert fatigue on trust and compliance.'},
+    ]
+  },
+  {
+    id:'interactive', name:'Interactive', sub:'Acting & Learning',
+    desc:'Interactive patterns describe how AI systems take actions in the world and improve over time through feedback and experience. These are the agency-layer capabilities.',
+    patterns:[
+      {name:'Execute Task', desc:'Carry out a discrete action or workflow step on behalf of the user.', detail:'Task execution is the core of agentic AI. Design must define: scope boundaries, confirmation requirements, rollback capability, and clear accountability for actions taken.'},
+      {name:'Automate Workflow', desc:'Chain multiple actions into a repeatable process that runs with minimal human intervention.', detail:'Workflow automation compounds the stakes of individual task execution. Design for: exception handling, human escalation points, audit trails, and the right level of automation for the risk profile.'},
+      {name:'Collaborate', desc:'Work alongside humans in a shared task, adapting to human input and preferences in real time.', detail:'Human-AI collaboration is the highest-stakes interaction pattern. Design for: role clarity, contribution visibility, trust calibration, and preserving human agency.'},
+      {name:'Learn from Feedback', desc:'Update behavior based on explicit or implicit signals from user interactions.', detail:'Feedback loops are how AI systems improve — and how they can amplify bias. Design for: feedback quality, loop transparency, and the ability to audit and correct what the system has learned.'},
+      {name:'Personalize', desc:'Adapt outputs, interface, or behavior to individual user preferences and history.', detail:'Personalization improves relevance but raises privacy and filter-bubble concerns. Design for: user control over personalization, transparency of what is being adapted, and opt-out pathways.'},
+      {name:'Delegate', desc:'Transfer a task or decision to another agent, human, or system based on context.', detail:'Delegation in agentic systems requires clear handoff protocols. Design for: handoff visibility, context transfer, and accountability continuity across the delegation boundary.'},
+      {name:'Request Clarification', desc:'Proactively ask the human for additional information when the task is ambiguous or underspecified.', detail:'Knowing when to ask vs. when to proceed is a critical design decision. Over-asking creates friction; under-asking produces errors. Design for: clarification timing, question quality, and graceful handling of non-response.'},
+      {name:'Escalate', desc:'Surface a situation to a human or higher-authority system when it exceeds the AI\'s confidence or authorization.', detail:'Escalation is a safety-critical pattern. Design for: escalation threshold calibration, routing logic, handoff documentation, and preserving context across the human-AI boundary.'},
+    ]
+  },
+];
+
+let selectedPattern = null;
+
+function initApb() {
+  const btns = document.getElementById('apb-layer-btns');
+  apbLayers.forEach(layer => {
+    const btn = document.createElement('button');
+    btn.className = 'apb-layer-btn';
+    btn.innerHTML = `${layer.name}<span class="layer-sub">${layer.sub}</span>`;
+    btn.onclick = () => {
+      document.querySelectorAll('.apb-layer-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderApbContent(layer);
+    };
+    btns.appendChild(btn);
+  });
+}
+
+function renderApbContent(layer) {
+  const content = document.getElementById('apb-content');
+  content.innerHTML = `
+    <div class="apb-layer-title">${layer.name} — ${layer.sub}</div>
+    <div class="apb-layer-desc">${layer.desc}</div>
+    <div class="apb-patterns-grid" id="apb-patterns-grid">
+      ${layer.patterns.map((p,i) => `
+        <div class="apb-pattern-card" id="apb-pc-${i}" onclick="selectPattern(${i})">
+          <div class="apb-pattern-name">${p.name}</div>
+          <div class="apb-pattern-desc">${p.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div id="apb-pattern-detail"></div>
+  `;
+  window._currentApbLayer = layer;
+}
+
+function selectPattern(i) {
+  const layer = window._currentApbLayer;
+  if (!layer) return;
+  document.querySelectorAll('.apb-pattern-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('apb-pc-' + i)?.classList.add('selected');
+  const p = layer.patterns[i];
+  document.getElementById('apb-pattern-detail').innerHTML = `
+    <div class="apb-pattern-detail">
+      <div class="apb-pattern-detail-name">${p.name}</div>
+      <div class="apb-pattern-detail-body">
+        <p><strong>Definition:</strong> ${p.desc}</p>
+        <p><strong>Design considerations:</strong> ${p.detail}</p>
+      </div>
+    </div>
+  `;
+}
+
+initApb();
 </script>
 </body>
 </html>
