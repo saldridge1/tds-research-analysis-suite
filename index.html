@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TDS Research Analysis Suite — Team Design Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --tds-ink:#1a1a1a;
+    --tds-muted:#6b6b6b;
+    --tds-border:#e0ddd6;
+    --tds-surface:#faf9f7;
+    --tds-white:#ffffff;
+    --tds-gold:#c4963a;
+    --tds-gold-light:#f5edd8;
+    --tds-accent:#2d4a3e;
+    --tds-accent-light:#e8f0ec;
+    --tds-danger-bg:#fcebeb;
+    --tds-danger:#a32d2d;
+    --tds-danger-border:#f09595;
+  }
+  body{font-family:'DM Sans',sans-serif;color:var(--tds-ink);background:var(--tds-surface);min-height:100vh}
+
+  /* LAYOUT */
+  .app-shell{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+  /* HEADER */
+  .suite-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;border-bottom:1px solid var(--tds-border);padding-bottom:1.25rem}
+  .suite-logo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--tds-ink);letter-spacing:0.02em}
+  .suite-logo span{color:var(--tds-gold)}
+  .suite-meta{text-align:right}
+  .suite-tagline{font-size:11px;color:var(--tds-muted);letter-spacing:0.09em;text-transform:uppercase}
+  .suite-version{font-size:10px;color:var(--tds-border);margin-top:3px;letter-spacing:0.05em}
+
+  /* TABS */
+  .tab-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2rem}
+  .tab-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 16px;border:0.5px solid var(--tds-border);background:var(--tds-white);color:var(--tds-muted);border-radius:20px;cursor:pointer;letter-spacing:0.03em;transition:all 0.2s}
+  .tab-btn.active{background:var(--tds-accent);color:#fff;border-color:var(--tds-accent)}
+  .tab-btn:hover:not(.active){background:var(--tds-surface);color:var(--tds-ink)}
+
+  /* PANELS */
+  .panel{display:none}.panel.active{display:block}
+  .panel-title{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--tds-ink);margin-bottom:5px}
+  .panel-sub{font-size:13px;color:var(--tds-muted);margin-bottom:1.5rem;line-height:1.6}
+
+  /* SHARED INPUTS */
+  input[type=text],input[type=url]{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 11px;border:0.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-ink);outline:none;transition:border-color 0.15s}
+  input[type=text]:focus,input[type=url]:focus{border-color:var(--tds-gold)}
+  textarea{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 11px;border:0.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-ink);outline:none;resize:vertical;transition:border-color 0.15s}
+  textarea:focus{border-color:var(--tds-gold)}
+  select{font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 9px;border:0.5px solid var(--tds-border);border-radius:6px;color:var(--tds-ink);background:var(--tds-white);outline:none}
+  button{font-family:'DM Sans',sans-serif;cursor:pointer}
+
+  .btn-primary{font-size:12px;font-weight:500;padding:7px 14px;border:none;border-radius:6px;background:var(--tds-accent);color:#fff;transition:opacity 0.15s}
+  .btn-primary:hover{opacity:0.88}
+  .btn-secondary{font-size:12px;font-weight:500;padding:7px 14px;border:0.5px solid var(--tds-border);border-radius:6px;background:var(--tds-white);color:var(--tds-accent)}
+  .btn-secondary:hover{background:var(--tds-accent-light)}
+  .btn-ghost{font-size:11px;padding:6px 13px;border:0.5px dashed var(--tds-border);border-radius:6px;background:transparent;color:var(--tds-accent);font-weight:500}
+  .btn-ghost:hover{background:var(--tds-accent-light)}
+  .btn-danger{font-size:11px;padding:6px 13px;border:0.5px solid var(--tds-danger-border);border-radius:6px;background:var(--tds-white);color:var(--tds-danger)}
+  .btn-danger:hover{background:var(--tds-danger-bg)}
+
+  /* INSTRUCTION BLOCK */
+  .instruction-block{background:var(--tds-gold-light);border:0.5px solid var(--tds-gold);border-radius:8px;padding:12px 16px;margin-bottom:1.25rem}
+  .instruction-block-title{font-size:10px;font-weight:500;color:var(--tds-gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+  .instruction-steps{font-size:12px;color:var(--tds-ink);line-height:1.8;list-style:none}
+  .instruction-steps li{padding-left:16px;position:relative}
+  .instruction-steps li::before{content:'→';position:absolute;left:0;color:var(--tds-gold);font-size:11px;top:1px}
+
+  /* CARD SORT */
+  .card-sort-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+  .card-sort-wrap{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+  .card-pool-col{min-width:170px;flex:0 0 170px}
+  .col-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--tds-muted);margin-bottom:8px;font-weight:500}
+  .sort-categories-grid{display:flex;flex:1;gap:10px;flex-wrap:wrap}
+  .sort-category{background:var(--tds-white);border:1px dashed var(--tds-border);border-radius:8px;padding:12px;min-width:140px;min-height:130px;flex:1;transition:background 0.15s}
+  .sort-category.drag-over{background:var(--tds-accent-light);border-color:var(--tds-accent)}
+  .cat-label{font-size:10px;font-weight:500;color:var(--tds-accent);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px}
+  .card-item{background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:6px;padding:8px 11px;font-size:12px;margin-bottom:7px;cursor:grab;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.15s,border-color 0.15s;user-select:none}
+  .card-item:active{cursor:grabbing}
+  .card-item:hover{box-shadow:0 2px 10px rgba(0,0,0,0.07);border-color:var(--tds-gold)}
+  .card-item.dragging{opacity:0.35}
+  .card-dot{width:6px;height:6px;border-radius:50%;background:var(--tds-gold);flex-shrink:0;margin-left:8px}
+
+  /* HEAT MAP */
+  .heatmap-url-bar{display:flex;gap:8px;margin-bottom:1rem;align-items:center;flex-wrap:wrap}
+  .heatmap-url-bar input{flex:1;min-width:200px}
+  .heatmap-layout{display:flex;gap:1.5rem;flex-wrap:wrap}
+  .heatmap-canvas-wrap{position:relative;flex:1;min-width:260px;min-height:300px;background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:8px;overflow:hidden;cursor:crosshair}
+  .heatmap-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10}
+  .heatmap-mock{width:100%;min-height:300px;display:flex;flex-direction:column;padding:14px;gap:10px;position:relative;z-index:2}
+  .mock-nav{height:32px;background:var(--tds-surface);border-radius:6px;display:flex;align-items:center;padding:0 12px;gap:8px;border:0.5px solid var(--tds-border)}
+  .mock-dot{width:9px;height:9px;border-radius:50%;background:var(--tds-border)}
+  .mock-url-pill{font-size:9px;color:var(--tds-muted);margin-left:auto;background:var(--tds-white);border:0.5px solid var(--tds-border);padding:2px 8px;border-radius:10px}
+  .mock-hero{flex:2;background:var(--tds-surface);border-radius:6px;border:0.5px solid var(--tds-border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--tds-muted);min-height:120px;font-style:italic}
+  .mock-row{display:flex;gap:8px;height:44px}
+  .mock-block{flex:1;background:var(--tds-surface);border-radius:6px;border:0.5px solid var(--tds-border)}
+  .url-mode-banner{position:absolute;top:0;left:0;right:0;background:var(--tds-gold-light);border-bottom:0.5px solid var(--tds-gold);font-size:10px;color:var(--tds-gold);text-transform:uppercase;letter-spacing:0.07em;text-align:center;padding:5px;z-index:15;font-weight:500}
+  .heatmap-iframe{width:100%;height:100%;border:none;position:absolute;top:0;left:0;z-index:1}
+  .heatmap-sidebar{min-width:180px;display:flex;flex-direction:column;gap:10px}
+  .heat-stat{background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:8px;padding:11px 13px}
+  .heat-stat-label{font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--tds-muted);margin-bottom:3px}
+  .heat-stat-val{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--tds-accent)}
+  .heat-stat-val.sm{font-size:1rem;margin-top:3px}
+  .heat-legend{display:flex;gap:5px;align-items:center}
+  .heat-legend-bar{flex:1;height:7px;border-radius:4px;background:linear-gradient(to right,rgba(196,150,58,0.1),rgba(196,150,58,1))}
+  .heat-legend-label{font-size:10px;color:var(--tds-muted)}
+
+  /* FIELD GUIDE */
+  .fg-toolbar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+  .fg-table-wrap{overflow-x:auto;border:0.5px solid var(--tds-border);border-radius:8px}
+  .fg-table{width:100%;border-collapse:collapse;font-size:12px}
+  .fg-table th{background:var(--tds-accent);color:#fff;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;padding:9px 11px;text-align:left;white-space:nowrap}
+  .fg-table th:first-child{border-radius:8px 0 0 0}
+  .fg-table th:last-child{border-radius:0 8px 0 0}
+  .fg-table td{border-bottom:0.5px solid var(--tds-border);padding:0;vertical-align:top}
+  .fg-table td input,.fg-table td select,.fg-table td textarea{font-family:'DM Sans',sans-serif;font-size:12px;padding:8px 10px;border:none;background:transparent;width:100%;color:var(--tds-ink);outline:none;resize:none}
+  .fg-table td textarea{min-height:40px;line-height:1.5}
+  .fg-table td input:focus,.fg-table td select:focus,.fg-table td textarea:focus{background:var(--tds-gold-light)}
+  .fg-table tr:hover td{background:var(--tds-surface)}
+  .fg-table .row-num{width:32px;text-align:center;color:var(--tds-muted);font-size:11px;padding:10px 6px}
+  .del-cell{width:36px}
+  .del-btn{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--tds-border);background:transparent;cursor:pointer;color:var(--tds-muted);font-size:14px;display:flex;align-items:center;justify-content:center;margin:7px auto}
+  .del-btn:hover{background:var(--tds-danger-bg);color:var(--tds-danger);border-color:var(--tds-danger-border)}
+
+  /* AFFINITY */
+  .affinity-wrap{border:0.5px solid var(--tds-border);border-radius:8px;overflow:hidden;background:var(--tds-white)}
+  .affinity-toolbar{display:flex;gap:8px;padding:12px;border-bottom:0.5px solid var(--tds-border);flex-wrap:wrap;align-items:center;background:var(--tds-surface)}
+  .aff-note-input{flex:1;min-width:120px}
+  .aff-color-row{display:flex;gap:5px;align-items:center}
+  .aff-dot{width:17px;height:17px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color 0.15s,transform 0.1s}
+  .aff-dot:hover{transform:scale(1.15)}
+  .aff-dot.selected{border-color:var(--tds-ink) !important}
+  .aff-board{position:relative;min-height:340px;padding:14px}
+  .aff-note{position:absolute;width:130px;min-height:85px;border-radius:5px;padding:9px;font-size:11px;line-height:1.55;cursor:move;user-select:none;display:flex;flex-direction:column;box-shadow:1px 2px 8px rgba(0,0,0,0.09)}
+  .aff-note-body{flex:1;font-family:'DM Sans',sans-serif;outline:none}
+  .aff-note-footer{display:flex;justify-content:flex-end;margin-top:6px}
+  .aff-del{background:none;border:none;cursor:pointer;font-size:13px;opacity:0.35;line-height:1;padding:0}
+  .aff-del:hover{opacity:0.8}
+  .aff-cluster{position:absolute;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;background:var(--tds-white);border:0.5px solid var(--tds-accent);border-radius:4px;padding:3px 9px;cursor:move;user-select:none;color:var(--tds-accent);outline:none}
+
+  /* USER FLOW */
+  .flow-layout{display:flex;gap:1.25rem;flex-wrap:wrap}
+  .flow-col{flex:1;min-width:250px}
+  .flow-col-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--tds-muted);margin-bottom:10px;font-weight:500}
+  .flow-input-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .flow-input-row input{flex:1;min-width:80px}
+  .flow-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;position:relative}
+  .flow-connector{position:absolute;left:11px;top:24px;width:1px;height:calc(100% + 8px);background:var(--tds-border)}
+  .flow-node{width:23px;height:23px;border-radius:50%;background:var(--tds-accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:500;margin-top:2px;position:relative;z-index:1}
+  .flow-step-card{flex:1;background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:6px;padding:8px 11px}
+  .flow-path{font-size:12px;font-weight:500;color:var(--tds-ink)}
+  .flow-time{font-size:10px;color:var(--tds-gold);margin-top:3px;font-weight:500;font-family:'DM Serif Display',serif}
+  .flow-note-text{font-size:11px;color:var(--tds-muted);margin-top:4px;font-style:italic}
+  .flow-del{background:none;border:none;cursor:pointer;color:var(--tds-border);font-size:13px;padding:2px;align-self:center;flex-shrink:0}
+  .flow-del:hover{color:var(--tds-danger)}
+  .audio-bar{background:var(--tds-surface);border:0.5px solid var(--tds-border);border-radius:8px;padding:11px 13px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .audio-label{font-size:11px;color:var(--tds-muted)}
+  .audio-upload-btn{font-size:11px;padding:5px 12px;border:0.5px dashed var(--tds-border);border-radius:6px;cursor:pointer;background:var(--tds-white);color:var(--tds-accent);font-weight:500}
+  .ai-btn{font-size:11px;padding:5px 12px;border:none;border-radius:6px;cursor:pointer;background:var(--tds-gold);color:#fff;font-weight:500}
+  .ai-btn:hover{opacity:0.88}
+  .transcript-board{background:var(--tds-white);border:0.5px solid var(--tds-border);border-radius:8px;min-height:220px;padding:12px;margin-bottom:10px}
+  .t-entry{display:flex;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:0.5px solid var(--tds-border)}
+  .t-stamp{font-size:10px;color:var(--tds-gold);font-weight:500;white-space:nowrap;min-width:38px;font-family:'DM Serif Display',serif;padding-top:1px}
+  .t-body{flex:1}
+  .t-text{font-size:12px;color:var(--tds-ink);line-height:1.55}
+  .t-ann{font-size:10px;color:var(--tds-accent);font-style:italic;margin-top:3px}
+  .t-input-row{display:flex;gap:6px;flex-wrap:wrap}
+  .t-input-row input{flex:1;min-width:80px}
+
+  /* FOOTER */
+  .suite-footer{margin-top:3rem;padding-top:1rem;border-top:0.5px solid var(--tds-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer-brand{font-family:'DM Serif Display',serif;font-size:0.9rem;color:var(--tds-muted)}
+  .footer-brand span{color:var(--tds-gold)}
+  .footer-link{font-size:11px;color:var(--tds-muted);text-decoration:none;letter-spacing:0.03em}
+  .footer-link:hover{color:var(--tds-accent)}
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="suite-header">
+    <div>
+      <div class="suite-logo">Team Design <span>Studios</span></div>
+      <div class="suite-tagline" style="margin-top:4px">Research Analysis Suite</div>
+    </div>
+    <div class="suite-meta">
+      <div class="suite-tagline">Clarity by Design</div>
+      <div class="suite-version">v1.0 · 2026</div>
+    </div>
+  </header>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('card-sort',this)">Card Sorting</button>
+    <button class="tab-btn" onclick="switchTab('heatmap',this)">Heat Map</button>
+    <button class="tab-btn" onclick="switchTab('field-guide',this)">Field Guide</button>
+    <button class="tab-btn" onclick="switchTab('affinity',this)">Affinity Diagram</button>
+    <button class="tab-btn" onclick="switchTab('user-flow',this)">User Flow</button>
+  </nav>
+
+  <!-- CARD SORTING -->
+  <section id="panel-card-sort" class="panel active">
+    <div class="panel-title">Card Sorting</div>
+    <div class="panel-sub">Open sort — participants group content by their own mental model to reveal navigation intuition.</div>
+    <div class="instruction-block">
+      <div class="instruction-block-title">Participant Instructions</div>
+      <ul class="instruction-steps">
+        <li>Read all cards in the pool before moving anything.</li>
+        <li>When ready, drag each card into the category that feels most natural to you.</li>
+        <li>Sort by priority — place your most certain cards first.</li>
+        <li>You may create new categories if none of the existing ones fit your thinking.</li>
+        <li>There are no right or wrong answers. We want your instinct.</li>
+      </ul>
+    </div>
+    <div class="card-sort-controls">
+      <input type="text" id="new-card-input" placeholder="New card label..." style="width:180px">
+      <button class="btn-secondary" onclick="addCard()">+ Add Card</button>
+      <input type="text" id="new-cat-input" placeholder="New category name..." style="width:190px">
+      <button class="btn-secondary" onclick="addCategory()">+ Add Category</button>
+      <button class="btn-danger" onclick="resetSort()" style="margin-left:auto">Reset Sort</button>
+    </div>
+    <div class="card-sort-wrap">
+      <div class="card-pool-col">
+        <div class="col-label">Unsorted Cards</div>
+        <div id="card-pool" ondragover="allowDrop(event)" ondrop="dropCard(event,'pool')" style="min-height:100px"></div>
+      </div>
+      <div class="sort-categories-grid" id="sort-categories"></div>
+    </div>
+  </section>
+
+  <!-- HEAT MAP -->
+  <section id="panel-heatmap" class="panel">
+    <div class="panel-title">Heat Map</div>
+    <div class="panel-sub">Record interaction points on a live URL or built-in wireframe mockup. Click anywhere on the canvas to log a touch point.</div>
+    <div class="heatmap-url-bar">
+      <input type="url" id="heatmap-url" placeholder="https://teamdesignstudios.com — paste any URL to load a live site...">
+      <button class="btn-primary" onclick="loadHeatURL()">Load URL</button>
+      <button class="btn-secondary" onclick="resetHeatMock()">Use Mockup</button>
+      <button class="btn-danger" onclick="clearHeat()">Clear Heat Map</button>
+    </div>
+    <div class="heatmap-layout">
+      <div class="heatmap-canvas-wrap" id="heatmap-wrap" onclick="recordClick(event)">
+        <div id="heatmap-content" class="heatmap-mock">
+          <div class="mock-nav">
+            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+            <div class="mock-url-pill">teamdesignstudios.com</div>
+          </div>
+          <div class="mock-hero">[ hero / primary content area ]</div>
+          <div class="mock-row"><div class="mock-block"></div><div class="mock-block"></div><div class="mock-block"></div></div>
+          <div class="mock-row"><div class="mock-block" style="flex:2"></div><div class="mock-block"></div></div>
+        </div>
+        <canvas id="heat-canvas" class="heatmap-overlay"></canvas>
+      </div>
+      <div class="heatmap-sidebar">
+        <div class="heat-stat"><div class="heat-stat-label">Total Clicks</div><div class="heat-stat-val" id="click-count">0</div></div>
+        <div class="heat-stat"><div class="heat-stat-label">Hot Zone</div><div class="heat-stat-val sm" id="hot-zone">—</div></div>
+        <div class="heat-stat"><div class="heat-stat-label">Mode</div><div class="heat-stat-val sm" id="heat-mode">Mockup</div></div>
+        <div class="heat-legend">
+          <span class="heat-legend-label">Low</span>
+          <div class="heat-legend-bar"></div>
+          <span class="heat-legend-label">High</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIELD GUIDE -->
+  <section id="panel-field-guide" class="panel">
+    <div class="panel-title">Field Guide</div>
+    <div class="panel-sub">Document observations, behaviors, quotes, and insights in real time. A Comments column keeps your researcher thinking anchored to each row.</div>
+    <div class="fg-toolbar">
+      <select id="fg-method" onchange="updateFGColumns()">
+        <option value="interview">User Interview</option>
+        <option value="usability">Usability Study</option>
+        <option value="contextual">Contextual Inquiry</option>
+        <option value="survey">Survey Analysis</option>
+      </select>
+      <button class="btn-primary" onclick="exportFG()">Export CSV</button>
+      <button class="btn-danger" style="margin-left:auto" onclick="clearFG()">Clear Table</button>
+    </div>
+    <div class="fg-table-wrap">
+      <table class="fg-table" id="fg-table">
+        <thead id="fg-thead"></thead>
+        <tbody id="fg-tbody"></tbody>
+      </table>
+    </div>
+    <button class="btn-ghost" onclick="addFGRow()" style="margin-top:10px">+ Add observation</button>
+  </section>
+
+  <!-- AFFINITY DIAGRAM -->
+  <section id="panel-affinity" class="panel">
+    <div class="panel-title">Affinity Diagram</div>
+    <div class="panel-sub">Add insight notes, drag them into clusters, and label emerging themes. Double-click a note to edit it in place.</div>
+    <div class="affinity-wrap">
+      <div class="affinity-toolbar">
+        <input class="aff-note-input" id="aff-input" type="text" placeholder="Type an insight or observation...">
+        <div class="aff-color-row" id="aff-colors"></div>
+        <button class="btn-primary" onclick="addAffNote()">+ Note</button>
+        <button class="btn-secondary" onclick="addClusterLabel()">+ Cluster Label</button>
+        <button class="btn-danger" style="margin-left:auto" onclick="document.getElementById('aff-board').innerHTML=''">Clear Board</button>
+      </div>
+      <div class="aff-board" id="aff-board"></div>
+    </div>
+  </section>
+
+  <!-- USER FLOW -->
+  <section id="panel-user-flow" class="panel">
+    <div class="panel-title">User Flow Transcription</div>
+    <div class="panel-sub">Log path elements and time intervals on the left. Pair with a timestamped, annotated session transcript on the right.</div>
+    <div class="flow-layout">
+      <div class="flow-col">
+        <div class="flow-col-label">Path Timeline</div>
+        <div class="flow-input-row">
+          <input type="text" id="fl-path" placeholder="Screen / action / path element...">
+          <input type="text" id="fl-time" placeholder="0:00" style="max-width:64px">
+          <input type="text" id="fl-note" placeholder="Annotation...">
+          <button class="btn-primary" onclick="addFlowStep()">+ Step</button>
+        </div>
+        <div id="flow-steps"></div>
+      </div>
+      <div class="flow-col">
+        <div class="flow-col-label">Session Transcript</div>
+        <div class="audio-bar">
+          <span class="audio-label">Audio source:</span>
+          <label class="audio-upload-btn">Upload audio
+            <input type="file" accept="audio/*" style="display:none" onchange="handleAudio(event)">
+          </label>
+          <button class="ai-btn" onclick="simulateTranscript()">AI Transcribe</button>
+        </div>
+        <div class="transcript-board" id="transcript-area">
+          <div style="color:var(--tds-muted);font-size:12px;font-style:italic;line-height:1.6">Upload a session recording and click AI Transcribe to generate a timestamped transcript — or add entries manually below.</div>
+        </div>
+        <div class="t-input-row">
+          <input type="text" id="t-stamp-in" placeholder="0:00" style="max-width:58px">
+          <input type="text" id="t-text-in" placeholder="Quote or observation...">
+          <input type="text" id="t-ann-in" placeholder="Annotation (optional)...">
+          <button class="btn-primary" onclick="addTranscriptEntry()">+ Entry</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="suite-footer">
+    <div class="footer-brand">Team Design <span>Studios</span></div>
+    <div style="display:flex;gap:16px">
+      <a href="https://teamdesignstudios.com" class="footer-link" target="_blank">teamdesignstudios.com</a>
+      <a href="https://docsend.com/view/s/9bzhycnqab7k92nq" class="footer-link" target="_blank">Portfolio</a>
+      <a href="https://www.linkedin.com/in/susanealdridge/" class="footer-link" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// ── TAB NAVIGATION ──
+function switchTab(tab, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+  if (tab === 'heatmap') setTimeout(initHeatCanvas, 80);
+}
+
+// ── CARD SORTING ──
+let cards = ['Navigation', 'Search', 'Profile', 'Settings', 'Help', 'Notifications', 'Dashboard', 'History', 'Reports', 'Favorites'];
+let categories = ['Feature', 'Information', 'Action', 'Support'];
+let cardLocations = {};
+cards.forEach(c => cardLocations[c] = 'pool');
+
+function renderCards() {
+  const pool = document.getElementById('card-pool');
+  const cats = document.getElementById('sort-categories');
+  pool.innerHTML = '';
+  cats.innerHTML = '';
+  cards.filter(c => cardLocations[c] === 'pool').forEach(c => pool.appendChild(makeCard(c)));
+  categories.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = 'sort-category';
+    div.setAttribute('ondragover', 'allowDrop(event)');
+    div.setAttribute('ondrop', `dropCard(event,'${cat}')`);
+    div.setAttribute('ondragleave', 'this.classList.remove("drag-over")');
+    div.innerHTML = `<div class="cat-label">${cat}</div>`;
+    cards.filter(c => cardLocations[c] === cat).forEach(c => div.appendChild(makeCard(c)));
+    cats.appendChild(div);
+  });
+}
+
+function makeCard(label) {
+  const d = document.createElement('div');
+  d.className = 'card-item';
+  d.draggable = true;
+  d.innerHTML = `<span>${label}</span><div class="card-dot"></div>`;
+  d.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', label); d.classList.add('dragging'); });
+  d.addEventListener('dragend', () => d.classList.remove('dragging'));
+  return d;
+}
+
+function allowDrop(e) {
+  e.preventDefault();
+  if (e.currentTarget.classList.contains('sort-category')) e.currentTarget.classList.add('drag-over');
+}
+
+function dropCard(e, loc) {
+  e.preventDefault();
+  document.querySelectorAll('.sort-category').forEach(c => c.classList.remove('drag-over'));
+  const label = e.dataTransfer.getData('text/plain');
+  if (label) cardLocations[label] = loc;
+  renderCards();
+}
+
+function addCard() {
+  const inp = document.getElementById('new-card-input');
+  const val = inp.value.trim();
+  if (!val) return;
+  cards.push(val);
+  cardLocations[val] = 'pool';
+  inp.value = '';
+  renderCards();
+}
+
+function addCategory() {
+  const inp = document.getElementById('new-cat-input');
+  const val = inp.value.trim();
+  if (!val) return;
+  categories.push(val);
+  inp.value = '';
+  renderCards();
+}
+
+function resetSort() {
+  cards.forEach(c => cardLocations[c] = 'pool');
+  renderCards();
+}
+
+renderCards();
+
+// ── HEAT MAP ──
+let heatPoints = [];
+let clickCount = 0;
+let heatCtx = null;
+
+function initHeatCanvas() {
+  const wrap = document.getElementById('heatmap-wrap');
+  const canvas = document.getElementById('heat-canvas');
+  canvas.width = wrap.offsetWidth;
+  canvas.height = wrap.offsetHeight;
+  heatCtx = canvas.getContext('2d');
+  drawHeat();
+}
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('panel-heatmap').classList.contains('active')) initHeatCanvas();
+});
+
+function recordClick(e) {
+  const wrap = document.getElementById('heatmap-wrap');
+  const rect = wrap.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  heatPoints.push({ x, y });
+  clickCount++;
+  document.getElementById('click-count').textContent = clickCount;
+  const pct = y / wrap.offsetHeight;
+  const zone = pct < 0.15 ? 'Navigation bar' : pct < 0.5 ? 'Hero / primary area' : pct < 0.75 ? 'Content row' : 'Lower content';
+  document.getElementById('hot-zone').textContent = zone;
+  if (!heatCtx) initHeatCanvas();
+  drawHeat();
+}
+
+function drawHeat() {
+  if (!heatCtx) return;
+  const canvas = document.getElementById('heat-canvas');
+  heatCtx.clearRect(0, 0, canvas.width, canvas.height);
+  heatPoints.forEach(p => {
+    const nearby = heatPoints.filter(q => Math.hypot(q.x - p.x, q.y - p.y) < 38).length;
+    const alpha = Math.min(0.14 * nearby, 0.82);
+    const grad = heatCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 40);
+    grad.addColorStop(0, `rgba(196,150,58,${alpha})`);
+    grad.addColorStop(0.5, `rgba(196,150,58,${alpha * 0.4})`);
+    grad.addColorStop(1, 'rgba(196,150,58,0)');
+    heatCtx.fillStyle = grad;
+    heatCtx.beginPath();
+    heatCtx.arc(p.x, p.y, 40, 0, Math.PI * 2);
+    heatCtx.fill();
+  });
+}
+
+function loadHeatURL() {
+  const url = document.getElementById('heatmap-url').value.trim();
+  if (!url) return;
+  const content = document.getElementById('heatmap-content');
+  content.innerHTML = `<div class="url-mode-banner">Live URL mode — click tracking active: ${url}</div><iframe class="heatmap-iframe" src="${url}" style="top:28px;height:calc(100% - 28px)"></iframe>`;
+  content.style.minHeight = '400px';
+  document.getElementById('heat-mode').textContent = 'Live URL';
+  clearHeat();
+  setTimeout(initHeatCanvas, 250);
+}
+
+function resetHeatMock() {
+  const content = document.getElementById('heatmap-content');
+  content.className = 'heatmap-mock';
+  content.style.minHeight = '';
+  content.innerHTML = `
+    <div class="mock-nav">
+      <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+      <div class="mock-url-pill">teamdesignstudios.com</div>
+    </div>
+    <div class="mock-hero">[ hero / primary content area ]</div>
+    <div class="mock-row"><div class="mock-block"></div><div class="mock-block"></div><div class="mock-block"></div></div>
+    <div class="mock-row"><div class="mock-block" style="flex:2"></div><div class="mock-block"></div></div>`;
+  document.getElementById('heatmap-url').value = '';
+  document.getElementById('heat-mode').textContent = 'Mockup';
+  clearHeat();
+  setTimeout(initHeatCanvas, 80);
+}
+
+function clearHeat() {
+  heatPoints = [];
+  clickCount = 0;
+  document.getElementById('click-count').textContent = '0';
+  document.getElementById('hot-zone').textContent = '—';
+  if (heatCtx) {
+    const c = document.getElementById('heat-canvas');
+    heatCtx.clearRect(0, 0, c.width, c.height);
+  }
+}
+
+// ── FIELD GUIDE ──
+const fgColumns = {
+  interview: ['#', 'Time', 'Participant', 'Question', 'Response', 'Behavior Observed', 'Insight', 'Severity', 'Comments'],
+  usability: ['#', 'Time', 'Task', 'Step', 'Action', 'Error', 'Completion', 'Insight', 'Comments'],
+  contextual: ['#', 'Time', 'Context', 'Behavior', 'Artifact', 'Quote', 'Pattern', 'Note', 'Comments'],
+  survey: ['#', 'Item', 'Response', 'Frequency', 'Theme', 'Insight', 'Priority', 'Note', 'Comments']
+};
+
+let fgRowCount = 0;
+
+function updateFGColumns() {
+  const method = document.getElementById('fg-method').value;
+  const cols = fgColumns[method];
+  document.getElementById('fg-thead').innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}<th></th></tr>`;
+  document.getElementById('fg-tbody').innerHTML = '';
+  fgRowCount = 0;
+  addFGRow();
+}
+
+function addFGRow() {
+  const method = document.getElementById('fg-method').value;
+  const cols = fgColumns[method];
+  const tbody = document.getElementById('fg-tbody');
+  fgRowCount++;
+  const n = fgRowCount;
+  const id = 'fg-' + Date.now();
+  const tr = document.createElement('tr');
+  tr.id = id;
+  tr.innerHTML = cols.map((col, i) => {
+    if (i === 0) return `<td class="row-num">${n}</td>`;
+    if (col === 'Severity' || col === 'Priority') return `<td style="min-width:80px"><select style="font-size:12px;padding:7px 8px;border:none;background:transparent;color:var(--tds-ink);width:100%;font-family:'DM Sans',sans-serif"><option>—</option><option>High</option><option>Medium</option><option>Low</option></select></td>`;
+    if (col === 'Completion') return `<td style="min-width:80px"><select style="font-size:12px;padding:7px 8px;border:none;background:transparent;color:var(--tds-ink);width:100%;font-family:'DM Sans',sans-serif"><option>—</option><option>Yes</option><option>Partial</option><option>No</option></select></td>`;
+    if (col === 'Comments') return `<td style="min-width:160px"><textarea placeholder="Researcher notes..." rows="2"></textarea></td>`;
+    return `<td style="min-width:100px"><input type="text" placeholder="${col}..."></td>`;
+  }).join('') + `<td class="del-cell"><button class="del-btn" onclick="document.getElementById('${id}').remove()">×</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function clearFG() {
+  document.getElementById('fg-tbody').innerHTML = '';
+  fgRowCount = 0;
+  addFGRow();
+}
+
+function exportFG() {
+  const method = document.getElementById('fg-method').value;
+  const cols = fgColumns[method];
+  const rows = document.querySelectorAll('#fg-tbody tr');
+  let csv = cols.join(',') + '\n';
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td input, td select, td textarea');
+    const vals = Array.from(cells).map(c => '"' + (c.value || '').replace(/"/g, '""') + '"');
+    csv += vals.join(',') + '\n';
+  });
+  const today = new Date().toISOString().split('T')[0];
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `TDS_FieldGuide_${method}_${today}.csv`;
+  a.click();
+}
+
+updateFGColumns();
+
+// ── AFFINITY DIAGRAM ──
+const affPalette = [
+  { bg: '#fef9e7', border: '#f7dc6f', text: '#7d6608' },
+  { bg: '#e8f8f5', border: '#76d7c4', text: '#0e6655' },
+  { bg: '#f9ebea', border: '#f1948a', text: '#922b21' },
+  { bg: '#eaf2ff', border: '#7fb3f5', text: '#1a5276' },
+  { bg: '#f5eef8', border: '#c39bd3', text: '#6c3483' },
+];
+let selColor = 0;
+let noteCounter = 0;
+
+const colorRow = document.getElementById('aff-colors');
+affPalette.forEach((c, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'aff-dot' + (i === 0 ? ' selected' : '');
+  dot.style.cssText = `background:${c.bg};border-color:${i === 0 ? 'var(--tds-ink)' : c.border}`;
+  dot.title = ['Yellow', 'Teal', 'Red', 'Blue', 'Purple'][i];
+  dot.onclick = () => {
+    selColor = i;
+    document.querySelectorAll('.aff-dot').forEach((d, j) => {
+      d.classList.toggle('selected', j === i);
+      d.style.borderColor = j === i ? 'var(--tds-ink)' : affPalette[j].border;
+    });
+  };
+  colorRow.appendChild(dot);
+});
+
+function addAffNote() {
+  const inp = document.getElementById('aff-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  const board = document.getElementById('aff-board');
+  const col = affPalette[selColor];
+  const id = 'note-' + noteCounter++;
+  const x = 16 + Math.random() * Math.max(10, board.offsetWidth - 160);
+  const y = 16 + Math.random() * Math.max(10, board.offsetHeight - 110);
+  const note = document.createElement('div');
+  note.className = 'aff-note';
+  note.id = id;
+  note.style.cssText = `left:${x}px;top:${y}px;background:${col.bg};border:1px solid ${col.border};color:${col.text}`;
+  note.innerHTML = `<div class="aff-note-body" contenteditable="true">${text}</div><div class="aff-note-footer"><button class="aff-del" onclick="document.getElementById('${id}').remove()">×</button></div>`;
+  makeDraggable(note);
+  board.appendChild(note);
+  inp.value = '';
+}
+
+function addClusterLabel() {
+  const board = document.getElementById('aff-board');
+  const label = document.createElement('div');
+  label.className = 'aff-cluster';
+  label.contentEditable = true;
+  label.style.cssText = 'left:20px;top:12px';
+  label.textContent = 'Theme label — click to edit';
+  makeDraggable(label);
+  board.appendChild(label);
+}
+
+function makeDraggable(el) {
+  el.addEventListener('mousedown', e => {
+    if (e.target.classList.contains('aff-del') || e.target.classList.contains('aff-note-body') || e.target.classList.contains('aff-cluster')) return;
+    let ox = parseInt(el.style.left) || 0;
+    let oy = parseInt(el.style.top) || 0;
+    let sx = e.clientX, sy = e.clientY;
+    const mv = e2 => { el.style.left = (ox + e2.clientX - sx) + 'px'; el.style.top = (oy + e2.clientY - sy) + 'px'; };
+    const up = () => { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
+    document.addEventListener('mousemove', mv);
+    document.addEventListener('mouseup', up);
+    e.preventDefault();
+  });
+}
+
+// ── USER FLOW ──
+let flowSteps = [];
+let transcriptEntries = [];
+
+function addFlowStep() {
+  const path = document.getElementById('fl-path').value.trim();
+  const time = document.getElementById('fl-time').value.trim() || '—';
+  const note = document.getElementById('fl-note').value.trim();
+  if (!path) return;
+  flowSteps.push({ path, time, note, id: Date.now() });
+  ['fl-path', 'fl-time', 'fl-note'].forEach(id => document.getElementById(id).value = '');
+  renderFlowSteps();
+}
+
+function renderFlowSteps() {
+  const wrap = document.getElementById('flow-steps');
+  wrap.innerHTML = '';
+  flowSteps.forEach((step, i) => {
+    const div = document.createElement('div');
+    div.className = 'flow-step';
+    div.innerHTML = `${i < flowSteps.length - 1 ? '<div class="flow-connector"></div>' : ''}
+      <div class="flow-node">${i + 1}</div>
+      <div class="flow-step-card">
+        <div class="flow-path">${step.path}</div>
+        <div class="flow-time">${step.time}</div>
+        ${step.note ? `<div class="flow-note-text">${step.note}</div>` : ''}
+      </div>
+      <button class="flow-del" onclick="removeFlowStep(${step.id})">×</button>`;
+    wrap.appendChild(div);
+  });
+}
+
+function removeFlowStep(id) {
+  flowSteps = flowSteps.filter(s => s.id !== id);
+  renderFlowSteps();
+}
+
+function addTranscriptEntry() {
+  const stamp = document.getElementById('t-stamp-in').value.trim();
+  const text = document.getElementById('t-text-in').value.trim();
+  const ann = document.getElementById('t-ann-in').value.trim();
+  if (!text) return;
+  const area = document.getElementById('transcript-area');
+  if (transcriptEntries.length === 0) area.innerHTML = '';
+  transcriptEntries.push({ stamp, text, ann });
+  const entry = document.createElement('div');
+  entry.className = 't-entry';
+  entry.innerHTML = `<div class="t-stamp">${stamp || '—'}</div><div class="t-body"><div class="t-text">${text}</div>${ann ? `<div class="t-ann">↳ ${ann}</div>` : ''}</div>`;
+  area.appendChild(entry);
+  ['t-stamp-in', 't-text-in', 't-ann-in'].forEach(id => document.getElementById(id).value = '');
+}
+
+function handleAudio(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  e.target.parentElement.textContent = 'Audio: ' + file.name;
+}
+
+function simulateTranscript() {
+  const area = document.getElementById('transcript-area');
+  area.innerHTML = '';
+  transcriptEntries = [];
+  const samples = [
+    { stamp: '0:04', text: 'Okay so I\'m looking for the main navigation first.', ann: 'Scans top of page — eyes move left to right' },
+    { stamp: '0:11', text: 'Hmm, I expected search to be more prominent here.', ann: 'Hesitation — expectation mismatch noted' },
+    { stamp: '0:19', text: 'I\'ll try clicking this... I\'m not sure if that\'s right.', ann: 'Uncertainty — exploratory behavior' },
+    { stamp: '0:27', text: 'Oh wait, there it is. That makes sense now.', ann: 'Recovery — task completion signal' },
+    { stamp: '0:35', text: 'The labels are a bit small for me on this section.', ann: 'Accessibility concern — font size / contrast' },
+  ];
+  samples.forEach(s => {
+    transcriptEntries.push(s);
+    const entry = document.createElement('div');
+    entry.className = 't-entry';
+    entry.innerHTML = `<div class="t-stamp">${s.stamp}</div><div class="t-body"><div class="t-text">${s.text}</div><div class="t-ann">↳ ${s.ann}</div></div>`;
+    area.appendChild(entry);
+  });
+}
+</script>
+</body>
+</html>
