@@ -76,6 +76,15 @@ Team Design Studios is the consulting practice of Susan E. Aldridge — a Staff 
 
 ---
 
+##Support This Work
+
+<a href="https://buymeacoffee.com/teamdesignstudios" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-black.png" 
+  alt="Buy Me A Coffee" width="200">
+</a>
+
+---
+
 ## License
 
 MIT — open for use, attribution appreciated.
